@@ -21,4 +21,4 @@ The behavior of a block on a ramp
 
 ## Push to Github
 
-`git push origin <branchname>`
+`git push -u origin <branchname>`
