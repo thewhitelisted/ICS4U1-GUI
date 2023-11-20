@@ -9,7 +9,7 @@ public class Main {
 
     // Constructor
     Main() {
-        this.main_panel.setPreferredSize(new Dimension(600, 600));
+        this.main_panel.setPreferredSize(new Dimension(900, 900));
         this.main_frame.setContentPane(main_panel);
         this.main_frame.pack();
         this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
