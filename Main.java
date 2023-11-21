@@ -1,4 +1,7 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -8,7 +11,9 @@ import javax.swing.JPanel;
 public class Main {
     // Properties
     JFrame main_frame = new JFrame();
+    JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
+    JPanel drawing_panel = new JPanel();
 
     JMenuBar main_menubar = new JMenuBar();
 
@@ -45,8 +50,17 @@ public class Main {
         this.clear_option.addActionListener(new GUIListener(this.clear_option));
 
         // Set the defaults for window size, content pane, and default close operation.
-        this.main_panel.setPreferredSize(new Dimension(900, 900));
-        this.main_frame.setContentPane(main_panel);
+        this.container_panel.setLayout(new BoxLayout(this.container_panel, BoxLayout.X_AXIS));
+        this.container_panel.add(this.main_panel);
+        this.container_panel.add(this.drawing_panel);
+        this.container_panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        this.main_panel.setPreferredSize(new Dimension(500, 900));
+        this.main_panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.drawing_panel.setPreferredSize(new Dimension(900, 900));
+        this.drawing_panel.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
         this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.main_frame.setVisible(true);
