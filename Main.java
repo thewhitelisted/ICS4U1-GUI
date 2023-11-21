@@ -13,7 +13,7 @@ public class Main {
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
-    JPanel drawing_panel = new JPanel();
+    JPanel drawing_panel = new DrawingPanel();
 
     JMenuBar main_menubar = new JMenuBar();
 
