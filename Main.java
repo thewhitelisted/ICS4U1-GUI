@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class Main {
     // Properties
-    JFrame main_frame = new JFrame();
+    JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
     JPanel drawing_panel = new JPanel();
