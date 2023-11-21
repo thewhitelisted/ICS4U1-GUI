@@ -1,7 +1,4 @@
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -17,7 +14,7 @@ public class Main {
 
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
-    JMenuItem open_option = new JMenuItem("Open CSV file");
+    JMenuItem open_option = new JMenuItem("Open CSV File");
 
     JMenu simulation_menu = new JMenu("Simulation");
     JMenuItem run_option = new JMenuItem("Run Simulation");
@@ -38,38 +35,14 @@ public class Main {
 
         this.main_frame.setJMenuBar(this.main_menubar);
 
-        // Add action listeners to the various options
-        this.save_option.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-            }
-        });
-        this.open_option.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-            }
-        });
+        // Add action listeners to the various options, see GUIListener for more
+        // information
+        this.save_option.addActionListener(new GUIListener(this.save_option));
+        this.open_option.addActionListener(new GUIListener(this.open_option));
 
-        this.run_option.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-            }
-        });
-        this.reset_option.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-            }
-        });
-        this.clear_option.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-            }
-        });
+        this.run_option.addActionListener(new GUIListener(this.run_option));
+        this.reset_option.addActionListener(new GUIListener(this.reset_option));
+        this.clear_option.addActionListener(new GUIListener(this.clear_option));
 
         // Set the defaults for window size, content pane, and default close operation.
         this.main_panel.setPreferredSize(new Dimension(900, 900));
