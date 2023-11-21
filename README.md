@@ -6,6 +6,11 @@ Christopher Lee and Nicholas Poon
 
 The behavior of a block on a ramp
 
+## TODO
+- GUI Drawing
+- Text Fields and Labels
+- Button Functionality
+
 ## Naming rules
 
 1. Variables should be named consistently and specific.
