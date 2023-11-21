@@ -6,6 +6,11 @@ Christopher Lee and Nicholas Poon
 
 The behavior of a block on a ramp
 
+## TODO
+- GUI Drawing
+- Text Fields and Labels
+- Button Functionality
+
 ## Naming rules
 
 1. Variables should be named consistently and specific.
@@ -21,4 +26,4 @@ The behavior of a block on a ramp
 
 ## Push to Github
 
-`git push origin <branchname>`
+`git push -u origin <branchname>`
