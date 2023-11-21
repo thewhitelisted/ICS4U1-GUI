@@ -55,14 +55,15 @@ public class Main {
         this.container_panel.add(this.drawing_panel);
         this.container_panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        this.main_panel.setPreferredSize(new Dimension(500, 900));
+        this.main_panel.setPreferredSize(new Dimension(320, 540));
         this.main_panel.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.drawing_panel.setPreferredSize(new Dimension(900, 900));
+        this.drawing_panel.setPreferredSize(new Dimension(640, 540));
         this.drawing_panel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
         this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.main_frame.setResizable(false);
         this.main_frame.setVisible(true);
     }
 
