@@ -4,16 +4,15 @@ import java.lang.Math;
 
 public class DrawingPanel extends JPanel {
     //Properties of triangle
-    double dblDegrees = 40;
-    
+    double dblDegrees = 15;
+    double dblPointAX = 50;
+    double dblPointAY = 300;
     double dblPointBX = 50;
     double dblPointBY = 490;
-    double dblPointCX = 590;
+    double dblPointCX = dblPointBX+(dblPointBY - dblPointAY)*(1/Math.tan(Math.toRadians(dblDegrees)));
+    //double dblPointCX = 590;
     double dblPointCY = 490;
-    double dblPointAX = 50;
-    //double dblPointAY = 300;
-    double dblPointAY = dblPointBY - (dblPointCX - dblPointBX)*(Math.tan(Math.toRadians(dblDegrees)));
-
+    
     int intPointAX = (int)(dblPointAX);
     int intPointAY = (int)(dblPointAY);
     int intPointBX = (int)(dblPointBX);

@@ -7,6 +7,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 public class Main {
     // Properties
@@ -16,6 +17,8 @@ public class Main {
     JPanel drawing_panel = new DrawingPanel();
 
     JMenuBar main_menubar = new JMenuBar();
+
+    JSlider angle_slider = new JSlider(0, 89);
 
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
