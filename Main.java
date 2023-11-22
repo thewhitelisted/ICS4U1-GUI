@@ -87,7 +87,16 @@ public class Main implements ActionListener {
         // order
         try {
             BufferedReader br = new BufferedReader(new FileReader("settings.csv"));
+            String strSettings = br.readLine();
+            String[] settings = strSettings.split(",");
+            this.angle_field.setText(settings[0]);
+            this.mass_field.setText(settings[1]);
+            this.static_friction_field.setText(settings[2]);
+            this.kinetic_friction_field.setText(settings[3]);
+            this.force_applied_field.setText(settings[4]);
+            br.close();
         } catch (FileNotFoundException e) {
+        } catch (IOException e) {
         }
     }
 
