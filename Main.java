@@ -29,8 +29,10 @@ public class Main {
     JMenuItem clear_option = new JMenuItem("Clear Simulation");
 
     JLabel title_label = new JLabel("Ramp Dynamics Simulator");
-    JLabel angle_label = new JLabel("Angle: ");
+    JLabel angle_label = new JLabel("Angle:");
     JTextField angle_field = new JTextField();
+    JLabel mass_label = new JLabel("Mass of Object:");
+    JTextField mass_field = new JTextField();
 
     // Constructor
     Main() {
@@ -72,8 +74,12 @@ public class Main {
         this.main_panel.add(this.title_label);
         this.angle_label.setBounds(10, 40, 50, 25);
         this.main_panel.add(this.angle_label, JLabel.LEFT_ALIGNMENT);
-        this.angle_field.setBounds(60, 40, 240, 25);
+        this.angle_field.setBounds(60, 40, 230, 25);
         this.main_panel.add(angle_field);
+        this.mass_label.setBounds(10, 75, 115, 25);
+        this.main_panel.add(mass_label);
+        this.mass_field.setBounds(115, 75, 175, 25);
+        this.main_panel.add(mass_field);
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
