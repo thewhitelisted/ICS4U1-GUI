@@ -3,10 +3,12 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Main {
     // Properties
@@ -25,6 +27,10 @@ public class Main {
     JMenuItem run_option = new JMenuItem("Run Simulation");
     JMenuItem reset_option = new JMenuItem("Reset Simulation");
     JMenuItem clear_option = new JMenuItem("Clear Simulation");
+
+    JLabel title_label = new JLabel("Ramp Dynamics Simulator");
+    JLabel angle_label = new JLabel("Angle: ");
+    JTextField angle_field = new JTextField();
 
     // Constructor
     Main() {
@@ -57,8 +63,17 @@ public class Main {
 
         this.main_panel.setPreferredSize(new Dimension(320, 540));
         this.main_panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.main_panel.setLayout(null);
         this.drawing_panel.setPreferredSize(new Dimension(640, 540));
         this.drawing_panel.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        // Add labels and textfields to the main panel
+        this.title_label.setBounds(10, 5, 200, 25);
+        this.main_panel.add(this.title_label);
+        this.angle_label.setBounds(10, 40, 50, 25);
+        this.main_panel.add(this.angle_label, JLabel.LEFT_ALIGNMENT);
+        this.angle_field.setBounds(60, 40, 240, 25);
+        this.main_panel.add(angle_field);
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
