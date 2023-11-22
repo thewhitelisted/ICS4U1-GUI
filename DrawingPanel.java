@@ -4,32 +4,37 @@ import java.lang.Math;
 
 public class DrawingPanel extends JPanel {
     //Properties of triangle
-    int intPointAX = 50;
-    int intPointAY = 300;
-
-    int intPointBX = 50;
-    int intPointBY = 490;
-
-    int intPointCX = 590;
-    int intPointCY = 490;
+    double dblDegrees = 40;
     
-    double dblAdj = intPointCX - intPointBX;
-    double dblOpp = intPointBY - intPointAY;
+    double dblPointBX = 50;
+    double dblPointBY = 490;
+    double dblPointCX = 590;
+    double dblPointCY = 490;
+    double dblPointAX = 50;
+    //double dblPointAY = 300;
+    double dblPointAY = dblPointBY - (dblPointCX - dblPointBX)*(Math.tan(Math.toRadians(dblDegrees)));
+
+    int intPointAX = (int)(dblPointAX);
+    int intPointAY = (int)(dblPointAY);
+    int intPointBX = (int)(dblPointBX);
+    int intPointBY = (int)(dblPointBY);
+    int intPointCX = (int)(dblPointCX);
+    int intPointCY = (int)(dblPointCY);
+    
+    double dblAdj = dblPointCX - dblPointBX;
+    double dblOpp = dblPointBY - dblPointAY;
     double dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
 
-    double dblDegrees = Math.toDegrees(Math.atan(dblOpp / dblAdj));
-
+    //double dblDegrees = Math.toDegrees(Math.atan(dblOpp / dblAdj));
+    //Properties of Square
     double dblSquareAX = 100;
     double dblSquareAY = 50;
-
-    double dblSquareBX = dblSquareAX + 100*(Math.cos(dblDegrees));
-    double dblSquareBY = dblSquareAY + 100*(Math.sin(dblDegrees));
-    
-    double dblSquareCX = dblSquareBX - 100*(Math.sin(dblDegrees));
-    double dblSquareCY = dblSquareBY + 100*(Math.cos(dblDegrees));
-    
-    double dblSquareDX = dblSquareCX - 100*(Math.cos(dblDegrees));
-    double dblSquareDY = dblSquareCY - 100*(Math.sin(dblDegrees));
+    double dblSquareBX = dblSquareAX + 50*(Math.cos(Math.toRadians(dblDegrees)));
+    double dblSquareBY = dblSquareAY + 50*(Math.sin(Math.toRadians(dblDegrees)));
+    double dblSquareCX = dblSquareBX - 50*(Math.sin(Math.toRadians(dblDegrees)));
+    double dblSquareCY = dblSquareBY + 50*(Math.cos(Math.toRadians(dblDegrees)));
+    double dblSquareDX = dblSquareCX - 50*(Math.cos(Math.toRadians(dblDegrees)));
+    double dblSquareDY = dblSquareCY - 50*(Math.sin(Math.toRadians(dblDegrees)));
 
     int intRoundAX = (int)dblSquareAX;
     int intRoundAY = (int)dblSquareAY;
@@ -43,6 +48,5 @@ public class DrawingPanel extends JPanel {
     public void paintComponent(Graphics g){
         g.fillPolygon(new int[] {intPointAX, intPointBX, intPointCX}, new int[] {intPointAY, intPointBY, intPointCY}, 3);
         g.fillPolygon(new int[] {intRoundAX, intRoundBX, intRoundCX, intRoundDX}, new int[] {intRoundAY, intRoundBY, intRoundCY, intRoundDY}, 4);
-        System.out.println(dblDegrees);
     }
 }
