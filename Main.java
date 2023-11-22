@@ -33,6 +33,10 @@ public class Main {
     JTextField angle_field = new JTextField();
     JLabel mass_label = new JLabel("Mass of Object:");
     JTextField mass_field = new JTextField();
+    JLabel static_friction_label = new JLabel("Coefficient of Static Friction:");
+    JTextField static_friction_field = new JTextField();
+    JLabel kinetic_friction_label = new JLabel("Coefficient of Kinetic Friction:");
+    JTextField kinetic_friction_field = new JTextField();
 
     // Constructor
     Main() {
@@ -80,6 +84,14 @@ public class Main {
         this.main_panel.add(mass_label);
         this.mass_field.setBounds(115, 75, 175, 25);
         this.main_panel.add(mass_field);
+        this.static_friction_label.setBounds(10, 110, 200, 25);
+        this.main_panel.add(static_friction_label);
+        this.static_friction_field.setBounds(200, 110, 90, 25);
+        this.main_panel.add(static_friction_field);
+        this.kinetic_friction_label.setBounds(10, 145, 200, 25);
+        this.main_panel.add(kinetic_friction_label);
+        this.kinetic_friction_field.setBounds(200, 145, 90, 25);
+        this.main_panel.add(kinetic_friction_field);
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
