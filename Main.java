@@ -37,6 +37,8 @@ public class Main {
     JTextField static_friction_field = new JTextField();
     JLabel kinetic_friction_label = new JLabel("Coefficient of Kinetic Friction:");
     JTextField kinetic_friction_field = new JTextField();
+    JLabel force_applied_label = new JLabel("Force Applied:");
+    JTextField force_applied_field = new JTextField();
 
     // Constructor
     Main() {
@@ -92,6 +94,10 @@ public class Main {
         this.main_panel.add(kinetic_friction_label);
         this.kinetic_friction_field.setBounds(200, 145, 90, 25);
         this.main_panel.add(kinetic_friction_field);
+        this.force_applied_label.setBounds(10, 180, 100, 25);
+        this.main_panel.add(force_applied_label);
+        this.force_applied_field.setBounds(100, 180, 190, 25);
+        this.main_panel.add(force_applied_field);
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
