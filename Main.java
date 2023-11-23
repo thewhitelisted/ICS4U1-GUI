@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,16 +16,21 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
 
-public class Main implements ActionListener {
+public class Main implements ActionListener, ChangeListener{
     // Properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
-    JPanel drawing_panel = new DrawingPanel();
+    DrawingPanel drawing_panel = new DrawingPanel();
 
     JMenuBar main_menubar = new JMenuBar();
+
+    JSlider angle_slider = new JSlider(0, 40);
 
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
@@ -114,6 +118,14 @@ public class Main implements ActionListener {
 
         this.main_frame.setJMenuBar(this.main_menubar);
 
+        // Angle Slider
+        angle_slider.setPaintTicks(true);
+        angle_slider.setMajorTickSpacing(40);
+        angle_slider.setPaintLabels(true);
+
+        angle_slider.addChangeListener(this);
+        this.main_panel.add(angle_slider);
+
         // Add action listeners to the various options, see GUIListener for more
         // information
         this.save_option.addActionListener(this);
@@ -173,5 +185,12 @@ public class Main implements ActionListener {
     // Main method
     public static void main(String[] args) {
         new Main();
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        System.out.println(angle_slider.getValue());
+        drawing_panel.dblDegrees = angle_slider.getValue();
+        drawing_panel.repaint();
     }
 }
