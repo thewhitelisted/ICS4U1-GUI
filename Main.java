@@ -3,10 +3,10 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Timer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -20,7 +20,9 @@ public class Main implements ChangeListener, ActionListener{
     JFrame main_frame = new JFrame();
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
-    JPanel drawing_panel = new DrawingPanel();
+    DrawingPanel drawing_panel = new DrawingPanel();
+
+    Timer timer = new Timer(1000, this);
 
     JMenuBar main_menubar = new JMenuBar();
 
@@ -56,6 +58,10 @@ public class Main implements ChangeListener, ActionListener{
 
         angle_slider.addChangeListener(this);
         this.main_panel.add(angle_slider);
+
+        //Timer
+        timer.addActionListener(this);
+        timer.start();
 
         // Add action listeners to the various options, see GUIListener for more
         // information
@@ -97,6 +103,9 @@ public class Main implements ChangeListener, ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if (e.getSource() == timer){
+            main_panel.repaint();
+            System.out.println("repaint");
+        }
     }
 }

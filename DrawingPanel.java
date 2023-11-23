@@ -4,10 +4,9 @@ import java.lang.Math;
 
 public class DrawingPanel extends JPanel {
     //Properties of triangle
-    public double dblDegrees = 40; //Between 0 - 40. Anything more will break
+    public double dblDegrees = 15.0; //Between 0 - 40. Anything more will break
     double dblPointBX = 50;
     double dblPointBY = 490;
-    //double dblPointCX = dblPointBX+(dblPointBY - dblPointAY)*(1/Math.tan(Math.toRadians(dblDegrees)));
     double dblPointCX = 590;
     double dblPointCY = 490;
     double dblPointAX = 50;
@@ -23,7 +22,6 @@ public class DrawingPanel extends JPanel {
     double dblOpp = dblPointBY - dblPointAY;
     double dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
 
-    //double dblDegrees = Math.toDegrees(Math.atan(dblOpp / dblAdj));
     //Properties of Square
     double dblSquareAX = 100;
     double dblSquareAY = 5;
