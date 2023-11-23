@@ -6,7 +6,7 @@ import java.lang.Math;
 
 public class DrawingPanel extends JPanel {
     // Properties of triangle
-    public double dblDegrees = 30.0; // Between 0 - 40. Anything more will break
+    public double dblDegrees = 20.0; // Between 0 - 40. Anything more will break
     double dblPointBX = 50;
     double dblPointBY = 490;
     double dblPointCX = 590;
@@ -27,11 +27,20 @@ public class DrawingPanel extends JPanel {
     // side lengths
     double dblAdj = dblPointCX - dblPointBX;
     double dblOpp = dblPointBY - dblPointAY;
+    // find slope of hypotenuse
+    double slope = dblOpp / dblAdj;
+    // find mx + b of hypotenuse
+    double b = dblPointBY - slope * dblPointBX;
     double dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
 
     // Properties of Square
     double dblSquareAX = 100;
-    double dblSquareAY = 5;
+    // calculate the y translation of the top left corner of the square
+
+    // calculate top left corner of square based on triangle height, should be on
+    // top of the triangle
+    double dblSquareAY = dblPointBY - 50 * Math.sin(Math.toRadians(dblDegrees))
+            - 50 * Math.sin(Math.toRadians(dblDegrees));
     double dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
     double dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
     double dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
@@ -69,8 +78,14 @@ public class DrawingPanel extends JPanel {
         dblAdj = dblPointCX - dblPointBX;
         dblOpp = dblPointBY - dblPointAY;
         dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
+        slope = dblOpp / dblAdj;
+        System.out.println(slope);
+        b = dblPointBY - slope * dblPointBX;
 
         // Update square
+        System.out.println((Math.sqrt(50 * 50 + 50 * 50 - 2 * (50 * 50 * Math.cos(Math.toRadians(90))))));
+        dblSquareAX = dblPointAX;
+        dblSquareAY = dblPointAY;
         dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
         dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
         dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
