@@ -21,7 +21,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
 
-public class Main implements ActionListener, ChangeListener{
+public class Main implements ActionListener, ChangeListener {
     // Properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
@@ -43,7 +43,6 @@ public class Main implements ActionListener, ChangeListener{
 
     JLabel title_label = new JLabel("Ramp Dynamics Simulator");
     JLabel angle_label = new JLabel("Angle:");
-    JTextField angle_field = new JTextField();
     JLabel mass_label = new JLabel("Mass of Object:");
     JTextField mass_field = new JTextField();
     JLabel static_friction_label = new JLabel("Coefficient of Static Friction:");
@@ -77,7 +76,7 @@ public class Main implements ActionListener, ChangeListener{
         // format: angle, mass, static friction, kinetic friction, force applied
         try {
             PrintWriter pw = new PrintWriter(new FileWriter("settings.csv"));
-            pw.println(this.angle_field.getText() + "," + this.mass_field.getText() + ","
+            pw.println(this.angle_slider.getValue() + "," + this.mass_field.getText() + ","
                     + this.static_friction_field.getText() + "," + this.kinetic_friction_field.getText() + ","
                     + this.force_applied_field.getText());
             pw.close();
@@ -93,7 +92,7 @@ public class Main implements ActionListener, ChangeListener{
             BufferedReader br = new BufferedReader(new FileReader("settings.csv"));
             String strSettings = br.readLine();
             String[] settings = strSettings.split(",");
-            this.angle_field.setText(settings[0]);
+            this.angle_slider.setValue(Integer.parseInt(settings[0]));
             this.mass_field.setText(settings[1]);
             this.static_friction_field.setText(settings[2]);
             this.kinetic_friction_field.setText(settings[3]);
@@ -124,7 +123,6 @@ public class Main implements ActionListener, ChangeListener{
         angle_slider.setPaintLabels(true);
 
         angle_slider.addChangeListener(this);
-        this.main_panel.add(angle_slider);
 
         // Add action listeners to the various options, see GUIListener for more
         // information
@@ -152,27 +150,27 @@ public class Main implements ActionListener, ChangeListener{
         // Add labels and textfields to the main panel
         this.title_label.setBounds(10, 5, 210, 25);
         this.main_panel.add(this.title_label);
-        this.angle_label.setBounds(10, 40, 50, 25);
-        this.main_panel.add(this.angle_label, JLabel.LEFT_ALIGNMENT);
-        this.angle_field.setBounds(60, 40, 240, 25);
-        this.main_panel.add(this.angle_field);
-        this.mass_label.setBounds(10, 75, 115, 25);
+        this.angle_label.setBounds(10, 40, 100, 25);
+        this.main_panel.add(this.angle_label);
+        this.angle_slider.setBounds(100, 40, 200, 45);
+        this.main_panel.add(this.angle_slider);
+        this.mass_label.setBounds(10, 85, 115, 25);
         this.main_panel.add(this.mass_label);
-        this.mass_field.setBounds(115, 75, 185, 25);
+        this.mass_field.setBounds(115, 85, 185, 25);
         this.main_panel.add(this.mass_field);
-        this.static_friction_label.setBounds(10, 110, 200, 25);
+        this.static_friction_label.setBounds(10, 120, 200, 25);
         this.main_panel.add(this.static_friction_label);
-        this.static_friction_field.setBounds(200, 110, 100, 25);
+        this.static_friction_field.setBounds(200, 120, 100, 25);
         this.main_panel.add(this.static_friction_field);
-        this.kinetic_friction_label.setBounds(10, 145, 200, 25);
+        this.kinetic_friction_label.setBounds(10, 155, 200, 25);
         this.main_panel.add(this.kinetic_friction_label);
-        this.kinetic_friction_field.setBounds(200, 145, 100, 25);
+        this.kinetic_friction_field.setBounds(200, 155, 100, 25);
         this.main_panel.add(this.kinetic_friction_field);
-        this.force_applied_label.setBounds(10, 180, 100, 25);
+        this.force_applied_label.setBounds(10, 190, 100, 25);
         this.main_panel.add(this.force_applied_label);
-        this.force_applied_field.setBounds(100, 180, 200, 25);
+        this.force_applied_field.setBounds(100, 190, 200, 25);
         this.main_panel.add(this.force_applied_field);
-        this.load_settings_button.setBounds(10, 215, 290, 25);
+        this.load_settings_button.setBounds(10, 225, 290, 25);
         this.main_panel.add(this.load_settings_button);
 
         this.main_frame.setContentPane(container_panel);
@@ -189,7 +187,7 @@ public class Main implements ActionListener, ChangeListener{
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        System.out.println(angle_slider.getValue());
+        // System.out.println(angle_slider.getValue());
         drawing_panel.dblDegrees = angle_slider.getValue();
         drawing_panel.repaint();
     }
