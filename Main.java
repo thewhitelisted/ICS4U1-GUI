@@ -1,9 +1,5 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -15,14 +11,12 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Main implements ChangeListener, ActionListener{
+public class Main implements ChangeListener {
     // Properties
     JFrame main_frame = new JFrame();
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
     DrawingPanel drawing_panel = new DrawingPanel();
-
-    Timer timer = new Timer(1000, this);
 
     JMenuBar main_menubar = new JMenuBar();
 
@@ -51,17 +45,13 @@ public class Main implements ChangeListener, ActionListener{
 
         this.main_frame.setJMenuBar(this.main_menubar);
 
-        //Angle Slider
+        // Angle Slider
         angle_slider.setPaintTicks(true);
         angle_slider.setMajorTickSpacing(40);
         angle_slider.setPaintLabels(true);
 
         angle_slider.addChangeListener(this);
         this.main_panel.add(angle_slider);
-
-        //Timer
-        timer.addActionListener(this);
-        timer.start();
 
         // Add action listeners to the various options, see GUIListener for more
         // information
@@ -99,13 +89,6 @@ public class Main implements ChangeListener, ActionListener{
     public void stateChanged(ChangeEvent e) {
         System.out.println(angle_slider.getValue());
         drawing_panel.dblDegrees = angle_slider.getValue();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == timer){
-            main_panel.repaint();
-            System.out.println("repaint");
-        }
+        drawing_panel.repaint();
     }
 }
