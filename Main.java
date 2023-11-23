@@ -1,15 +1,21 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class Main {
+public class Main implements ChangeListener, ActionListener{
     // Properties
     JFrame main_frame = new JFrame();
     JPanel container_panel = new JPanel();
@@ -18,7 +24,7 @@ public class Main {
 
     JMenuBar main_menubar = new JMenuBar();
 
-    JSlider angle_slider = new JSlider(0, 89);
+    JSlider angle_slider = new JSlider(0, 40);
 
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
@@ -42,6 +48,14 @@ public class Main {
         this.simulation_menu.add(this.clear_option);
 
         this.main_frame.setJMenuBar(this.main_menubar);
+
+        //Angle Slider
+        angle_slider.setPaintTicks(true);
+        angle_slider.setMajorTickSpacing(40);
+        angle_slider.setPaintLabels(true);
+
+        angle_slider.addChangeListener(this);
+        this.main_panel.add(angle_slider);
 
         // Add action listeners to the various options, see GUIListener for more
         // information
@@ -73,5 +87,16 @@ public class Main {
     // Main method
     public static void main(String[] args) {
         new Main();
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        System.out.println(angle_slider.getValue());
+        drawing_panel.dblDegrees = angle_slider.getValue();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
     }
 }

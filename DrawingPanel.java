@@ -4,15 +4,14 @@ import java.lang.Math;
 
 public class DrawingPanel extends JPanel {
     //Properties of triangle
-    double dblDegrees = 15;
-    double dblPointAX = 50;
-    double dblPointAY = 300;
+    public double dblDegrees = 40; //Between 0 - 40. Anything more will break
     double dblPointBX = 50;
     double dblPointBY = 490;
-    double dblPointCX = dblPointBX+(dblPointBY - dblPointAY)*(1/Math.tan(Math.toRadians(dblDegrees)));
-    //double dblPointCX = 590;
+    //double dblPointCX = dblPointBX+(dblPointBY - dblPointAY)*(1/Math.tan(Math.toRadians(dblDegrees)));
+    double dblPointCX = 590;
     double dblPointCY = 490;
-    
+    double dblPointAX = 50;
+    double dblPointAY = dblPointBY - (dblPointCX - dblPointBX)*(Math.tan(Math.toRadians(dblDegrees)));
     int intPointAX = (int)(dblPointAX);
     int intPointAY = (int)(dblPointAY);
     int intPointBX = (int)(dblPointBX);
@@ -27,7 +26,7 @@ public class DrawingPanel extends JPanel {
     //double dblDegrees = Math.toDegrees(Math.atan(dblOpp / dblAdj));
     //Properties of Square
     double dblSquareAX = 100;
-    double dblSquareAY = 50;
+    double dblSquareAY = 5;
     double dblSquareBX = dblSquareAX + 50*(Math.cos(Math.toRadians(dblDegrees)));
     double dblSquareBY = dblSquareAY + 50*(Math.sin(Math.toRadians(dblDegrees)));
     double dblSquareCX = dblSquareBX - 50*(Math.sin(Math.toRadians(dblDegrees)));
