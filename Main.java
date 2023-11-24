@@ -127,7 +127,7 @@ public class Main implements ActionListener, ChangeListener {
 
         // Angle Slider
         angle_slider.setPaintTicks(true);
-        angle_slider.setMajorTickSpacing(35);
+        angle_slider.setMajorTickSpacing(5);
         angle_slider.setPaintLabels(true);
 
         angle_slider.addChangeListener(this);

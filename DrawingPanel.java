@@ -91,6 +91,7 @@ public class DrawingPanel extends JPanel {
         dblSquareDX = dblSquareCX - 50 * (Math.cos(Math.toRadians(dblDegrees)));
         dblSquareDY = dblSquareCY - 50 * (Math.sin(Math.toRadians(dblDegrees)));
 
+
         intRoundAX = (int) dblSquareAX;
         intRoundAY = (int) dblSquareAY;
         intRoundBX = (int) dblSquareBX;
