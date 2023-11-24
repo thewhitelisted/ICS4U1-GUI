@@ -71,6 +71,13 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        // System.out.println(angle_slider.getValue());
+        drawing_panel.dblDegrees = angle_slider.getValue();
+        drawing_panel.repaint();
+    }
+
     private void saveSettings() {
         // save settings to a CSV file
         // format: angle, mass, static friction, kinetic friction, force applied
@@ -183,12 +190,5 @@ public class Main implements ActionListener, ChangeListener {
     // Main method
     public static void main(String[] args) {
         new Main();
-    }
-
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        // System.out.println(angle_slider.getValue());
-        drawing_panel.dblDegrees = angle_slider.getValue();
-        drawing_panel.repaint();
     }
 }
