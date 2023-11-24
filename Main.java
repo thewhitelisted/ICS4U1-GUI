@@ -30,7 +30,7 @@ public class Main implements ActionListener, ChangeListener {
 
     JMenuBar main_menubar = new JMenuBar();
 
-    JSlider angle_slider = new JSlider(0, 40);
+    JSlider angle_slider = new JSlider(5, 40);
 
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
@@ -119,7 +119,7 @@ public class Main implements ActionListener, ChangeListener {
 
         // Angle Slider
         angle_slider.setPaintTicks(true);
-        angle_slider.setMajorTickSpacing(40);
+        angle_slider.setMajorTickSpacing(35);
         angle_slider.setPaintLabels(true);
 
         angle_slider.addChangeListener(this);
