@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -57,7 +58,7 @@ public class Main implements ActionListener, ChangeListener {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
-            System.out.println("Load Settings in Simulation");
+            JOptionPane.showMessageDialog(this.main_frame, "Load Settings Button Pressed");
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
