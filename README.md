@@ -7,9 +7,11 @@ Christopher Lee and Nicholas Poon
 The behavior of a block on a ramp
 
 ## TODO
-- GUI Drawing
+
 - Text Fields and Labels
+  - Translate to the drawing when button click
 - Button Functionality
+  - Change save csv to check if all values are ints
 
 ## Naming rules
 

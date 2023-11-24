@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,17 +15,23 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
 
-public class Main implements ActionListener {
+public class Main implements ActionListener, ChangeListener {
     // Properties
-    JFrame main_frame = new JFrame();
+    JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
-    JPanel drawing_panel = new JPanel();
+    DrawingPanel drawing_panel = new DrawingPanel();
 
     JMenuBar main_menubar = new JMenuBar();
+
+    JSlider angle_slider = new JSlider(5, 40);
 
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
@@ -39,7 +44,6 @@ public class Main implements ActionListener {
 
     JLabel title_label = new JLabel("Ramp Dynamics Simulator");
     JLabel angle_label = new JLabel("Angle:");
-    JTextField angle_field = new JTextField();
     JLabel mass_label = new JLabel("Mass of Object:");
     JTextField mass_field = new JTextField();
     JLabel static_friction_label = new JLabel("Coefficient of Static Friction:");
@@ -54,7 +58,7 @@ public class Main implements ActionListener {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
-            System.out.println("Load Settings in Simulation");
+            JOptionPane.showMessageDialog(this.main_frame, "Load Settings Button Pressed");
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
@@ -68,12 +72,19 @@ public class Main implements ActionListener {
         }
     }
 
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        // System.out.println(angle_slider.getValue());
+        drawing_panel.dblDegrees = angle_slider.getValue();
+        drawing_panel.repaint();
+    }
+
     private void saveSettings() {
         // save settings to a CSV file
         // format: angle, mass, static friction, kinetic friction, force applied
         try {
             PrintWriter pw = new PrintWriter(new FileWriter("settings.csv"));
-            pw.println(this.angle_field.getText() + "," + this.mass_field.getText() + ","
+            pw.println(this.angle_slider.getValue() + "," + this.mass_field.getText() + ","
                     + this.static_friction_field.getText() + "," + this.kinetic_friction_field.getText() + ","
                     + this.force_applied_field.getText());
             pw.close();
@@ -89,7 +100,7 @@ public class Main implements ActionListener {
             BufferedReader br = new BufferedReader(new FileReader("settings.csv"));
             String strSettings = br.readLine();
             String[] settings = strSettings.split(",");
-            this.angle_field.setText(settings[0]);
+            this.angle_slider.setValue(Integer.parseInt(settings[0]));
             this.mass_field.setText(settings[1]);
             this.static_friction_field.setText(settings[2]);
             this.kinetic_friction_field.setText(settings[3]);
@@ -113,6 +124,13 @@ public class Main implements ActionListener {
         this.simulation_menu.add(this.clear_option);
 
         this.main_frame.setJMenuBar(this.main_menubar);
+
+        // Angle Slider
+        angle_slider.setPaintTicks(true);
+        angle_slider.setMajorTickSpacing(35);
+        angle_slider.setPaintLabels(true);
+
+        angle_slider.addChangeListener(this);
 
         // Add action listeners to the various options, see GUIListener for more
         // information
@@ -140,27 +158,27 @@ public class Main implements ActionListener {
         // Add labels and textfields to the main panel
         this.title_label.setBounds(10, 5, 210, 25);
         this.main_panel.add(this.title_label);
-        this.angle_label.setBounds(10, 40, 50, 25);
-        this.main_panel.add(this.angle_label, JLabel.LEFT_ALIGNMENT);
-        this.angle_field.setBounds(60, 40, 240, 25);
-        this.main_panel.add(this.angle_field);
-        this.mass_label.setBounds(10, 75, 115, 25);
+        this.angle_label.setBounds(10, 40, 100, 25);
+        this.main_panel.add(this.angle_label);
+        this.angle_slider.setBounds(100, 40, 200, 45);
+        this.main_panel.add(this.angle_slider);
+        this.mass_label.setBounds(10, 85, 115, 25);
         this.main_panel.add(this.mass_label);
-        this.mass_field.setBounds(115, 75, 185, 25);
+        this.mass_field.setBounds(115, 85, 185, 25);
         this.main_panel.add(this.mass_field);
-        this.static_friction_label.setBounds(10, 110, 200, 25);
+        this.static_friction_label.setBounds(10, 120, 200, 25);
         this.main_panel.add(this.static_friction_label);
-        this.static_friction_field.setBounds(200, 110, 100, 25);
+        this.static_friction_field.setBounds(200, 120, 100, 25);
         this.main_panel.add(this.static_friction_field);
-        this.kinetic_friction_label.setBounds(10, 145, 200, 25);
+        this.kinetic_friction_label.setBounds(10, 155, 200, 25);
         this.main_panel.add(this.kinetic_friction_label);
-        this.kinetic_friction_field.setBounds(200, 145, 100, 25);
+        this.kinetic_friction_field.setBounds(200, 155, 100, 25);
         this.main_panel.add(this.kinetic_friction_field);
-        this.force_applied_label.setBounds(10, 180, 100, 25);
+        this.force_applied_label.setBounds(10, 190, 100, 25);
         this.main_panel.add(this.force_applied_label);
-        this.force_applied_field.setBounds(100, 180, 200, 25);
+        this.force_applied_field.setBounds(100, 190, 200, 25);
         this.main_panel.add(this.force_applied_field);
-        this.load_settings_button.setBounds(10, 215, 290, 25);
+        this.load_settings_button.setBounds(10, 225, 290, 25);
         this.main_panel.add(this.load_settings_button);
 
         this.main_frame.setContentPane(container_panel);
