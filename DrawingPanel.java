@@ -34,13 +34,13 @@ public class DrawingPanel extends JPanel {
     double dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
 
     // Properties of Square
-    double dblSquareAX = 100;
+    double dblSquareAX = 150;
     // calculate the y translation of the top left corner of the square
 
     // calculate top left corner of square based on triangle height, should be on
     // top of the triangle
-    double dblSquareAY = dblPointBY - 50 * Math.sin(Math.toRadians(dblDegrees))
-            - 50 * Math.sin(Math.toRadians(dblDegrees));
+    double dblSquareAY = (540 - 50 - (440 * Math.tan(Math.toRadians(dblDegrees))))
+            - (50 / Math.cos(Math.toRadians(dblDegrees)));
     double dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
     double dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
     double dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
@@ -79,13 +79,12 @@ public class DrawingPanel extends JPanel {
         dblOpp = dblPointBY - dblPointAY;
         dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
         slope = dblOpp / dblAdj;
-        System.out.println(slope);
+        System.out.println(dblOpp);
         b = dblPointBY - slope * dblPointBX;
 
         // Update square
-        System.out.println((Math.sqrt(50 * 50 + 50 * 50 - 2 * (50 * 50 * Math.cos(Math.toRadians(90))))));
-        dblSquareAX = dblPointAX;
-        dblSquareAY = dblPointAY;
+        dblSquareAY = (540 - 50 - (440 * Math.tan(Math.toRadians(dblDegrees))))
+                - (50 / Math.cos(Math.toRadians(dblDegrees)));
         dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
         dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
         dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
