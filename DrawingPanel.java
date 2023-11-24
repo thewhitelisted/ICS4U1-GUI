@@ -79,7 +79,6 @@ public class DrawingPanel extends JPanel {
         dblOpp = dblPointBY - dblPointAY;
         dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
         slope = dblOpp / dblAdj;
-        System.out.println(dblOpp);
         b = dblPointBY - slope * dblPointBX;
 
         // Update square
