@@ -58,6 +58,14 @@ public class DrawingPanel extends JPanel {
     int intRoundDX = (int) dblSquareDX;
     int intRoundDY = (int) dblSquareDY;
 
+
+    // physics properties
+    double dblMass;
+    double dblAcceleration;
+    double dblStaticFriction;
+    double dblKineticFriction;
+    static double dblGravity = 9.8;
+
     public void paintComponent(Graphics g) {
         this.update();
         g.setColor(Color.white);
