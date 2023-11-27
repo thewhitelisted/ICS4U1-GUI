@@ -56,7 +56,7 @@ public class Main implements ActionListener, ChangeListener {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
-            JOptionPane.showMessageDialog(this.main_frame, "Load Settings Button Pressed");
+            this.loadSimulation();
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
@@ -67,7 +67,7 @@ public class Main implements ActionListener, ChangeListener {
             System.out.println("Reset Simulation");
         } else if (e.getSource() == this.clear_option) {
             System.out.println("Clear Simulation");
-        }
+        } 
     }
 
     @Override
@@ -105,6 +105,34 @@ public class Main implements ActionListener, ChangeListener {
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         }
+    }
+
+    private void loadSimulation() {
+        // take all values from the text fields and set them to the values in the
+        // simulation
+        if (this.mass_field.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a mass.");
+            return;
+        } else if (this.static_friction_field.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a static friction coefficient.");
+            return;
+        } else if (this.kinetic_friction_field.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a kinetic friction coefficient.");
+            return;
+        }
+        // check if the values contain only numbers
+        try {
+            drawing_panel.dblMass = Double.parseDouble(this.mass_field.getText());
+            drawing_panel.dblStaticFriction = Double.parseDouble(this.static_friction_field.getText());
+            drawing_panel.dblKineticFriction = Double.parseDouble(this.kinetic_friction_field.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter only numbers.");
+            return;
+        }
+
+        // display a message dialog to the user to let them know that the simulation
+        // settings have been loaded
+        JOptionPane.showMessageDialog(this.main_frame, "Settings loaded.");
     }
 
     // Constructor
