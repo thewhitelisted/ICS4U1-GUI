@@ -76,7 +76,6 @@ public class DrawingPanel extends JPanel {
         g.setColor(Color.red);
         g.fillPolygon(new int[] { intRoundAX, intRoundBX, intRoundCX, intRoundDX },
                 new int[] { intRoundAY, intRoundBY, intRoundCY, intRoundDY }, 4);
-        this.repaint();
     }
 
     public void update() {

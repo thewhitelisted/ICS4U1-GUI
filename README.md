@@ -12,6 +12,7 @@ The behavior of a block on a ramp
   - Translate to the drawing when button click
 - Button Functionality
   - Change save csv to check if all values are ints
+- Add framerate to simulation
 
 ## Naming rules
 

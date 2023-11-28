@@ -21,6 +21,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 public class Main implements ActionListener, ChangeListener {
     // Properties
@@ -52,6 +53,8 @@ public class Main implements ActionListener, ChangeListener {
     JTextField kinetic_friction_field = new JTextField();
     JButton load_settings_button = new JButton("Load Settings in Simulation");
 
+    Timer timer = new Timer(1000/48, this);
+
     // Methods
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -62,12 +65,14 @@ public class Main implements ActionListener, ChangeListener {
         } else if (e.getSource() == this.open_option) {
             this.loadSettings();
         } else if (e.getSource() == this.run_option) {
-            System.out.println("Run Simulation");
+            timer.start();
         } else if (e.getSource() == this.reset_option) {
             System.out.println("Reset Simulation");
         } else if (e.getSource() == this.clear_option) {
             System.out.println("Clear Simulation");
-        } 
+        } else if (e.getSource() == this.timer) {
+            System.out.println("timer");
+        }
     }
 
     @Override
