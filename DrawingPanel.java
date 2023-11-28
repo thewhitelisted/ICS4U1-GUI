@@ -24,7 +24,7 @@ public class DrawingPanel extends JPanel {
     int intPointCX = (int) (dblPointCX);
     int intPointCY = (int) (dblPointCY);
 
-    // side lengths
+    // side lengths triangle
     double dblAdj = dblPointCX - dblPointBX;
     double dblOpp = dblPointBY - dblPointAY;
     // find slope of hypotenuse
@@ -48,7 +48,7 @@ public class DrawingPanel extends JPanel {
     double dblSquareDX = dblSquareCX - 50 * (Math.cos(Math.toRadians(dblDegrees)));
     double dblSquareDY = dblSquareCY - 50 * (Math.sin(Math.toRadians(dblDegrees)));
 
-    // rounded dimensions
+    // rounded dimensions square
     int intRoundAX = (int) dblSquareAX;
     int intRoundAY = (int) dblSquareAY;
     int intRoundBX = (int) dblSquareBX;
@@ -60,11 +60,13 @@ public class DrawingPanel extends JPanel {
 
 
     // physics properties
-    double dblMass;
-    double dblAcceleration;
-    double dblStaticFriction;
-    double dblKineticFriction;
-    static double dblGravity = 9.8;
+    double dblMass = 0;
+    double dblVelX = 0;
+    double dblSeconds = 0;
+    double dblAccelerationX = 0;
+    double dblStaticFriction = 0;
+    double dblKineticFriction = 0;
+    static double dblGravity = 0.5;
 
     public void paintComponent(Graphics g) {
         this.update();
@@ -106,5 +108,12 @@ public class DrawingPanel extends JPanel {
         intRoundCY = (int) dblSquareCY;
         intRoundDX = (int) dblSquareDX;
         intRoundDY = (int) dblSquareDY;
+    }
+
+    public double physics(double dblTime){
+        dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees)); ;
+        dblVelX = dblAccelerationX * dblTime;
+        System.out.println(dblAccelerationX);                                                                                                                                                                                 
+        return dblVelX;
     }
 }

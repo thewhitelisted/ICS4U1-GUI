@@ -53,6 +53,7 @@ public class Main implements ActionListener, ChangeListener {
     JTextField kinetic_friction_field = new JTextField();
     JButton load_settings_button = new JButton("Load Settings in Simulation");
 
+
     Timer timer = new Timer(1000/48, this);
 
     // Methods
@@ -72,6 +73,9 @@ public class Main implements ActionListener, ChangeListener {
             System.out.println("Clear Simulation");
         } else if (e.getSource() == this.timer) {
             System.out.println("timer");
+            drawing_panel.dblSeconds += (1000 / 48);
+            drawing_panel.dblSquareAX += drawing_panel.physics(drawing_panel.dblSeconds);
+            drawing_panel.repaint();
         }
     }
 
