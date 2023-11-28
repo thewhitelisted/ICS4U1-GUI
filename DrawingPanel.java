@@ -90,8 +90,7 @@ public class DrawingPanel extends JPanel {
         b = dblPointBY - slope * dblPointBX;
 
         // Update square
-        dblSquareAY = (540 - 50 - (440 * Math.tan(Math.toRadians(dblDegrees))))
-                - (50 / Math.cos(Math.toRadians(dblDegrees)));
+        dblSquareAY = (540 - 50 - ((590 - dblSquareAX) * Math.tan(Math.toRadians(dblDegrees))) - (50 / Math.sin(Math.toRadians(90 - dblDegrees))));
         dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
         dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
         dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
