@@ -72,7 +72,8 @@ public class Main implements ActionListener, ChangeListener {
         } else if (e.getSource() == this.clear_option) {
             System.out.println("Clear Simulation");
         } else if (e.getSource() == this.timer) {
-            drawing_panel.dblSeconds += (1000 / 48);
+            drawing_panel.dblSeconds += (1 / 0.48);
+            System.out.println(drawing_panel.dblVelX);
             drawing_panel.dblSquareAX += drawing_panel.physicsCalculations(drawing_panel.dblSeconds);
             drawing_panel.repaint();
         }

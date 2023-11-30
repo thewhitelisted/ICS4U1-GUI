@@ -66,7 +66,7 @@ public class DrawingPanel extends JPanel {
     double dblAccelerationX = 0;
     double dblStaticFriction = 0;
     double dblKineticFriction = 0;
-    static double dblGravity = 0.5;
+    static double dblGravity = 9.8;
 
     public void paintComponent(Graphics g) {
         this.update();
