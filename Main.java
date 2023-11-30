@@ -72,9 +72,8 @@ public class Main implements ActionListener, ChangeListener {
         } else if (e.getSource() == this.clear_option) {
             System.out.println("Clear Simulation");
         } else if (e.getSource() == this.timer) {
-            System.out.println("timer");
             drawing_panel.dblSeconds += (1000 / 48);
-            drawing_panel.dblSquareAX += drawing_panel.physics(drawing_panel.dblSeconds);
+            drawing_panel.dblSquareAX += drawing_panel.physicsCalculations(drawing_panel.dblSeconds);
             drawing_panel.repaint();
         }
     }
@@ -159,11 +158,11 @@ public class Main implements ActionListener, ChangeListener {
         this.main_frame.setJMenuBar(this.main_menubar);
 
         // Angle Slider
-        angle_slider.setPaintTicks(true);
-        angle_slider.setMajorTickSpacing(5);
-        angle_slider.setPaintLabels(true);
+        this.angle_slider.setPaintTicks(true);
+        this.angle_slider.setMajorTickSpacing(5);
+        this.angle_slider.setPaintLabels(true);
 
-        angle_slider.addChangeListener(this);
+        this.angle_slider.addChangeListener(this);
 
         // Add action listeners to the various options, see GUIListener for more
         // information

@@ -110,10 +110,12 @@ public class DrawingPanel extends JPanel {
         intRoundDY = (int) dblSquareDY;
     }
 
-    public double physics(double dblTime){
+    public double physicsCalculations(double dblTime){
         dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees)); ;
         dblVelX = dblAccelerationX * dblTime;
-        System.out.println(dblAccelerationX);                                                                                                                                                                                 
+        if (dblVelX < 0){
+            dblVelX = 0;
+        }
         return dblVelX;
     }
 }
