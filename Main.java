@@ -53,6 +53,14 @@ public class Main implements ActionListener, ChangeListener {
     JTextField kinetic_friction_field = new JTextField();
     JButton load_settings_button = new JButton("Load Settings in Simulation");
 
+    JLabel stats_label = new JLabel("Simulation Stats");
+    JLabel normal_force_label = new JLabel("Force of the Normal: ");
+    JLabel sfriction_force_label = new JLabel("Force of Static Friction: ");
+    JLabel kfriction_force_label = new JLabel("Force of Kinetic Friction: ");
+    JLabel parallel_force_label = new JLabel("Force of Parallel: ");
+    JLabel perpendicular_force_label = new JLabel("Force of the Perpendicular: ");
+    JLabel xacceleration_label = new JLabel("X Acceleration: ");
+    JLabel yacceleration_label = new JLabel("Y Acceleration: " + DrawingPanel.dblGravity);
 
     Timer timer = new Timer(1000/48, this);
 
@@ -68,10 +76,14 @@ public class Main implements ActionListener, ChangeListener {
         } else if (e.getSource() == this.run_option) {
             timer.start();
         } else if (e.getSource() == this.reset_option) {
+            // TODO:reset simulation, timer, xposition
             System.out.println("Reset Simulation");
         } else if (e.getSource() == this.clear_option) {
+            // TODO: i don't remember why i put this option... reset text fields?
             System.out.println("Clear Simulation");
         } else if (e.getSource() == this.timer) {
+            // TODO: display live stats during the simulation
+            // FIXME: implement static friction
             drawing_panel.dblSeconds += (1 / 0.48);
             System.out.println(drawing_panel.dblVelX);
             drawing_panel.dblSquareAX += drawing_panel.physicsCalculations(drawing_panel.dblSeconds);
@@ -209,6 +221,9 @@ public class Main implements ActionListener, ChangeListener {
         this.main_panel.add(this.kinetic_friction_field);
         this.load_settings_button.setBounds(10, 190, 290, 25);
         this.main_panel.add(this.load_settings_button);
+
+        // section for live stats
+        //TODO
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
