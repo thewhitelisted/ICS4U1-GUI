@@ -1,5 +1,5 @@
+// imports
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.lang.Math;
@@ -24,7 +24,7 @@ public class DrawingPanel extends JPanel {
     int intPointCX = (int) (dblPointCX);
     int intPointCY = (int) (dblPointCY);
 
-    // side lengths
+    // side lengths triangle
     double dblAdj = dblPointCX - dblPointBX;
     double dblOpp = dblPointBY - dblPointAY;
     // find slope of hypotenuse
@@ -48,7 +48,7 @@ public class DrawingPanel extends JPanel {
     double dblSquareDX = dblSquareCX - 50 * (Math.cos(Math.toRadians(dblDegrees)));
     double dblSquareDY = dblSquareCY - 50 * (Math.sin(Math.toRadians(dblDegrees)));
 
-    // rounded dimensions
+    // rounded dimensions square
     int intRoundAX = (int) dblSquareAX;
     int intRoundAY = (int) dblSquareAY;
     int intRoundBX = (int) dblSquareBX;
@@ -58,6 +58,18 @@ public class DrawingPanel extends JPanel {
     int intRoundDX = (int) dblSquareDX;
     int intRoundDY = (int) dblSquareDY;
 
+
+    // physics properties
+    double dblMass = 0;
+    double dblVelX = 0;
+    double dblSeconds = 0;
+    double dblAccelerationX = 0;
+    double dblStaticFriction = 0;
+    double dblKineticFriction = 0;
+    static double dblGravity = 9.8;
+
+    // paint component method, override
+    @Override
     public void paintComponent(Graphics g) {
         this.update();
         g.setColor(Color.white);
@@ -68,9 +80,9 @@ public class DrawingPanel extends JPanel {
         g.setColor(Color.red);
         g.fillPolygon(new int[] { intRoundAX, intRoundBX, intRoundCX, intRoundDX },
                 new int[] { intRoundAY, intRoundBY, intRoundCY, intRoundDY }, 4);
-        this.repaint();
     }
 
+    // update method, updates the dimensions
     public void update() {
         // Update triangle
         dblPointAY = dblPointBY - (dblPointCX - dblPointBX) * (Math.tan(Math.toRadians(dblDegrees)));
@@ -82,8 +94,7 @@ public class DrawingPanel extends JPanel {
         b = dblPointBY - slope * dblPointBX;
 
         // Update square
-        dblSquareAY = (540 - 50 - (440 * Math.tan(Math.toRadians(dblDegrees))))
-                - (50 / Math.cos(Math.toRadians(dblDegrees)));
+        dblSquareAY = (540 - 50 - ((590 - dblSquareAX) * Math.tan(Math.toRadians(dblDegrees))) - (50 / Math.sin(Math.toRadians(90 - dblDegrees))));
         dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
         dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
         dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
@@ -100,5 +111,19 @@ public class DrawingPanel extends JPanel {
         intRoundCY = (int) dblSquareCY;
         intRoundDX = (int) dblSquareDX;
         intRoundDY = (int) dblSquareDY;
+    }
+
+    // physics calculations
+    public double physicsCalculations(double dblTime){
+        // if static friction is too high, return 0
+        if (dblStaticFriction*dblMass * dblGravity * Math.cos(Math.toRadians(dblDegrees)) > (dblMass * dblGravity * Math.cos(Math.toRadians(dblDegrees)))){
+            return 0;
+        }
+        dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees)); ;
+        dblVelX = dblAccelerationX * dblTime;
+        if (dblVelX < 0){
+            dblVelX = 0;
+        }
+        return dblVelX;
     }
 }

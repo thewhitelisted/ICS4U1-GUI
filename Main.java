@@ -1,6 +1,8 @@
+// imports
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,27 +23,33 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 public class Main implements ActionListener, ChangeListener {
-    // Properties
+    // Frame and panel properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
     DrawingPanel drawing_panel = new DrawingPanel();
 
+    // menu bar declaration
     JMenuBar main_menubar = new JMenuBar();
 
+    // angle slider declaration
     JSlider angle_slider = new JSlider(5, 40);
 
+    // file menu declaration
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
     JMenuItem open_option = new JMenuItem("Open CSV File");
 
+    // simulation menu declaration
     JMenu simulation_menu = new JMenu("Simulation");
     JMenuItem run_option = new JMenuItem("Run Simulation");
     JMenuItem reset_option = new JMenuItem("Reset Simulation");
     JMenuItem clear_option = new JMenuItem("Clear Simulation");
 
+    // labels and text fields
     JLabel title_label = new JLabel("Ramp Dynamics Simulator");
     JLabel angle_label = new JLabel("Angle:");
     JLabel mass_label = new JLabel("Mass of Object:");
@@ -50,28 +58,48 @@ public class Main implements ActionListener, ChangeListener {
     JTextField static_friction_field = new JTextField();
     JLabel kinetic_friction_label = new JLabel("Coefficient of Kinetic Friction:");
     JTextField kinetic_friction_field = new JTextField();
-    JLabel force_applied_label = new JLabel("Force Applied:");
-    JTextField force_applied_field = new JTextField();
     JButton load_settings_button = new JButton("Load Settings in Simulation");
 
-    // Methods
+    // simulation stats
+    JLabel stats_label = new JLabel("Simulation Stats");
+    JLabel normal_force_label = new JLabel("Force of the Normal: ");
+    JLabel sfriction_force_label = new JLabel("Force of Static Friction: ");
+    JLabel kfriction_force_label = new JLabel("Force of Kinetic Friction: ");
+    JLabel parallel_force_label = new JLabel("Force of Parallel: ");
+    JLabel perpendicular_force_label = new JLabel("Force of the Perpendicular: ");
+    JLabel xacceleration_label = new JLabel("X Acceleration: ");
+    JLabel yacceleration_label = new JLabel("Y Acceleration: " + DrawingPanel.dblGravity);
+
+    Timer timer = new Timer(1000/48, this);
+
+    // actionPerformed method, checks which input has been made and performs appropriate action
     @Override
-    public void actionPerformed(java.awt.event.ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
-            JOptionPane.showMessageDialog(this.main_frame, "Load Settings Button Pressed");
+            this.loadSimulation();
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
             this.loadSettings();
         } else if (e.getSource() == this.run_option) {
-            System.out.println("Run Simulation");
+            timer.start();
         } else if (e.getSource() == this.reset_option) {
+            // TODO:reset simulation, timer, xposition
             System.out.println("Reset Simulation");
         } else if (e.getSource() == this.clear_option) {
+            // TODO: i don't remember why i put this option... reset text fields?
             System.out.println("Clear Simulation");
+        } else if (e.getSource() == this.timer) {
+            // TODO: display live stats during the simulation
+            // calculate the new velocity based on seconds
+            drawing_panel.dblSeconds += (1 / 0.48);
+            System.out.println(drawing_panel.dblVelX);
+            drawing_panel.dblSquareAX += drawing_panel.physicsCalculations(drawing_panel.dblSeconds);
+            drawing_panel.repaint();
         }
     }
 
+    // Change Listener method, mainly for slider
     @Override
     public void stateChanged(ChangeEvent e) {
         // System.out.println(angle_slider.getValue());
@@ -79,19 +107,20 @@ public class Main implements ActionListener, ChangeListener {
         drawing_panel.repaint();
     }
 
+    // save settings method, updates settings.csv
     private void saveSettings() {
         // save settings to a CSV file
         // format: angle, mass, static friction, kinetic friction, force applied
         try {
             PrintWriter pw = new PrintWriter(new FileWriter("settings.csv"));
             pw.println(this.angle_slider.getValue() + "," + this.mass_field.getText() + ","
-                    + this.static_friction_field.getText() + "," + this.kinetic_friction_field.getText() + ","
-                    + this.force_applied_field.getText());
+                    + this.static_friction_field.getText() + "," + this.kinetic_friction_field.getText());
             pw.close();
         } catch (IOException e) {
         }
     }
 
+    // load settings method, reads from settings.csv
     private void loadSettings() {
         // load settings from a CSV file
         // load angle, mass, static friction, kinetic friction, force applied in that
@@ -104,11 +133,39 @@ public class Main implements ActionListener, ChangeListener {
             this.mass_field.setText(settings[1]);
             this.static_friction_field.setText(settings[2]);
             this.kinetic_friction_field.setText(settings[3]);
-            this.force_applied_field.setText(settings[4]);
             br.close();
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         }
+    }
+
+    // load simulation method, converts textfields to variables
+    private void loadSimulation() {
+        // take all values from the text fields and set them to the values in the
+        // simulation
+        if (this.mass_field.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a mass.");
+            return;
+        } else if (this.static_friction_field.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a static friction coefficient.");
+            return;
+        } else if (this.kinetic_friction_field.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a kinetic friction coefficient.");
+            return;
+        }
+        // check if the values contain only numbers
+        try {
+            drawing_panel.dblMass = Double.parseDouble(this.mass_field.getText());
+            drawing_panel.dblStaticFriction = Double.parseDouble(this.static_friction_field.getText());
+            drawing_panel.dblKineticFriction = Double.parseDouble(this.kinetic_friction_field.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter only numbers.");
+            return;
+        }
+
+        // display a message dialog to the user to let them know that the simulation
+        // settings have been loaded
+        JOptionPane.showMessageDialog(this.main_frame, "Settings loaded.");
     }
 
     // Constructor
@@ -126,11 +183,11 @@ public class Main implements ActionListener, ChangeListener {
         this.main_frame.setJMenuBar(this.main_menubar);
 
         // Angle Slider
-        angle_slider.setPaintTicks(true);
-        angle_slider.setMajorTickSpacing(5);
-        angle_slider.setPaintLabels(true);
+        this.angle_slider.setPaintTicks(true);
+        this.angle_slider.setMajorTickSpacing(5);
+        this.angle_slider.setPaintLabels(true);
 
-        angle_slider.addChangeListener(this);
+        this.angle_slider.addChangeListener(this);
 
         // Add action listeners to the various options, see GUIListener for more
         // information
@@ -174,12 +231,11 @@ public class Main implements ActionListener, ChangeListener {
         this.main_panel.add(this.kinetic_friction_label);
         this.kinetic_friction_field.setBounds(200, 155, 100, 25);
         this.main_panel.add(this.kinetic_friction_field);
-        this.force_applied_label.setBounds(10, 190, 100, 25);
-        this.main_panel.add(this.force_applied_label);
-        this.force_applied_field.setBounds(100, 190, 200, 25);
-        this.main_panel.add(this.force_applied_field);
-        this.load_settings_button.setBounds(10, 225, 290, 25);
+        this.load_settings_button.setBounds(10, 190, 290, 25);
         this.main_panel.add(this.load_settings_button);
+
+        // section for live stats
+        //TODO
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();
