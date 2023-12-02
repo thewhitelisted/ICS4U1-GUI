@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -90,7 +91,6 @@ public class Main implements ActionListener, ChangeListener {
             System.out.println("Clear Simulation");
         } else if (e.getSource() == this.timer) {
             // TODO: display live stats during the simulation
-            // FIXME: implement static friction
             // calculate the new velocity based on seconds
             drawing_panel.dblSeconds += (1 / 0.48);
             System.out.println(drawing_panel.dblVelX);
