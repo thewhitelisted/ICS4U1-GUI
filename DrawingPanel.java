@@ -1,5 +1,5 @@
+// imports
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.lang.Math;
@@ -68,6 +68,8 @@ public class DrawingPanel extends JPanel {
     double dblKineticFriction = 0;
     static double dblGravity = 9.8;
 
+    // paint component method, override
+    @Override
     public void paintComponent(Graphics g) {
         this.update();
         g.setColor(Color.white);
@@ -80,6 +82,7 @@ public class DrawingPanel extends JPanel {
                 new int[] { intRoundAY, intRoundBY, intRoundCY, intRoundDY }, 4);
     }
 
+    // update method, updates the dimensions
     public void update() {
         // Update triangle
         dblPointAY = dblPointBY - (dblPointCX - dblPointBX) * (Math.tan(Math.toRadians(dblDegrees)));
@@ -110,6 +113,7 @@ public class DrawingPanel extends JPanel {
         intRoundDY = (int) dblSquareDY;
     }
 
+    // physics calculations
     public double physicsCalculations(double dblTime){
         dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees)); ;
         dblVelX = dblAccelerationX * dblTime;

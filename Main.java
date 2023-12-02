@@ -1,3 +1,4 @@
+// imports
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -24,25 +25,30 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 public class Main implements ActionListener, ChangeListener {
-    // Properties
+    // Frame and panel properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
     DrawingPanel drawing_panel = new DrawingPanel();
 
+    // menu bar declaration
     JMenuBar main_menubar = new JMenuBar();
 
+    // angle slider declaration
     JSlider angle_slider = new JSlider(5, 40);
 
+    // file menu declaration
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
     JMenuItem open_option = new JMenuItem("Open CSV File");
 
+    // simulation menu declaration
     JMenu simulation_menu = new JMenu("Simulation");
     JMenuItem run_option = new JMenuItem("Run Simulation");
     JMenuItem reset_option = new JMenuItem("Reset Simulation");
     JMenuItem clear_option = new JMenuItem("Clear Simulation");
 
+    // labels and text fields
     JLabel title_label = new JLabel("Ramp Dynamics Simulator");
     JLabel angle_label = new JLabel("Angle:");
     JLabel mass_label = new JLabel("Mass of Object:");
@@ -53,6 +59,7 @@ public class Main implements ActionListener, ChangeListener {
     JTextField kinetic_friction_field = new JTextField();
     JButton load_settings_button = new JButton("Load Settings in Simulation");
 
+    // simulation stats
     JLabel stats_label = new JLabel("Simulation Stats");
     JLabel normal_force_label = new JLabel("Force of the Normal: ");
     JLabel sfriction_force_label = new JLabel("Force of Static Friction: ");
@@ -64,9 +71,9 @@ public class Main implements ActionListener, ChangeListener {
 
     Timer timer = new Timer(1000/48, this);
 
-    // Methods
+    // actionPerformed method, checks which input has been made and performs appropriate action
     @Override
-    public void actionPerformed(java.awt.event.ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
             this.loadSimulation();
         } else if (e.getSource() == this.save_option) {
@@ -84,6 +91,7 @@ public class Main implements ActionListener, ChangeListener {
         } else if (e.getSource() == this.timer) {
             // TODO: display live stats during the simulation
             // FIXME: implement static friction
+            // calculate the new velocity based on seconds
             drawing_panel.dblSeconds += (1 / 0.48);
             System.out.println(drawing_panel.dblVelX);
             drawing_panel.dblSquareAX += drawing_panel.physicsCalculations(drawing_panel.dblSeconds);
@@ -91,6 +99,7 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
+    // Change Listener method, mainly for slider
     @Override
     public void stateChanged(ChangeEvent e) {
         // System.out.println(angle_slider.getValue());
@@ -98,6 +107,7 @@ public class Main implements ActionListener, ChangeListener {
         drawing_panel.repaint();
     }
 
+    // save settings method, updates settings.csv
     private void saveSettings() {
         // save settings to a CSV file
         // format: angle, mass, static friction, kinetic friction, force applied
@@ -110,6 +120,7 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
+    // load settings method, reads from settings.csv
     private void loadSettings() {
         // load settings from a CSV file
         // load angle, mass, static friction, kinetic friction, force applied in that
@@ -128,6 +139,7 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
+    // load simulation method, converts textfields to variables
     private void loadSimulation() {
         // take all values from the text fields and set them to the values in the
         // simulation
