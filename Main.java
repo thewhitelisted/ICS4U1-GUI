@@ -41,11 +41,6 @@ import javax.swing.event.MenuListener;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
-/**
- * 
- * @author Christopher Lee
- * @author Nicholas Poon
- */
 public class Main implements ActionListener, ChangeListener, MenuListener{
     // Frame and panel properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
@@ -105,11 +100,6 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
 
     Timer timer = new Timer(1000/48, this);
 
-    /**
-     * Action Listener method, mainly for buttons
-     * @param e ActionEvent
-     * @see DrawingPanel
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
@@ -177,11 +167,6 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         
     }
 
-    /**
-     * Change Listener method, mainly for the angle slider
-     * @param e ChangeEvent
-     * @see DrawingPanel
-     */
     @Override
     public void stateChanged(ChangeEvent e) {
         // System.out.println(angle_slider.getValue());
@@ -189,9 +174,6 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         drawing_panel.repaint();
     }
 
-    /**
-     * Saves settings to a CSV file in the format: angle, mass, static friction, kinetic friction
-     */
     private void saveSettings() {
         // save settings to a CSV file
         // format: angle, mass, static friction, kinetic friction, force applied
@@ -204,9 +186,6 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         }
     }
 
-    /**
-     * Loads settings from a CSV file in the format: angle, mass, static friction, kinetic friction
-     */
     private void loadSettings() {
         // load settings from a CSV file
         // load angle, mass, static friction, kinetic friction, force applied in that
@@ -225,12 +204,6 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         }
     }
 
-    /**
-     * Loads the simulation settings from the text fields
-     * @see DrawingPanel.dblMass
-     * @see DrawingPanel.dblStaticFriction
-     * @see DrawingPanel.dblKineticFriction
-     */
     private void loadSimulation() {
         // take all values from the text fields and set them to the values in the
         // simulation
@@ -259,10 +232,6 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         JOptionPane.showMessageDialog(this.main_frame, "Settings loaded.");
     }
 
-    /**
-     * Main constructor, sets up the GUI
-     * @see DrawingPanel
-     */
     Main() {
         // Add JMenuBar to the main frame, and the items to the various menus.
         this.main_menubar.add(this.file_menu);
