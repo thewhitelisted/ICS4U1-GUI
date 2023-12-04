@@ -36,15 +36,16 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import javax.swing.JTextField;
 import javax.swing.Timer;
-
 /**
  * 
  * @author Christopher Lee
  * @author Nicholas Poon
  */
-public class Main implements ActionListener, ChangeListener {
+public class Main implements ActionListener, ChangeListener, MenuListener{
     // Frame and panel properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
     JPanel container_panel = new JPanel();
@@ -67,6 +68,15 @@ public class Main implements ActionListener, ChangeListener {
     JMenuItem run_option = new JMenuItem("Run Simulation");
     JMenuItem reset_option = new JMenuItem("Reset Simulation");
     JMenuItem clear_option = new JMenuItem("Clear Simulation");
+
+    // help menu declaration
+    JMenu help_menu = new JMenu("Help");
+
+    // quiz menu declaration
+    JMenu quiz_menu = new JMenu("Quiz");
+
+    // home menu declaration
+    JMenu home_menu = new JMenu("Home");
 
     // labels and text fields
     JLabel title_label = new JLabel("Ramp Dynamics Simulator");
@@ -148,6 +158,21 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
+  
+    @Override
+    public void menuSelected(MenuEvent e) {
+        
+    }
+
+    @Override
+    public void menuDeselected(MenuEvent e) {
+        
+    }
+
+    @Override
+    public void menuCanceled(MenuEvent e) {
+        
+    }
     /**
      * Change Listener method, mainly for the angle slider
      * @param e ChangeEvent
@@ -244,6 +269,15 @@ public class Main implements ActionListener, ChangeListener {
         this.simulation_menu.add(this.run_option);
         this.simulation_menu.add(this.reset_option);
         this.simulation_menu.add(this.clear_option);
+
+        this.main_menubar.add(this.help_menu);
+        this.help_menu.addMenuListener(this);
+
+        this.main_menubar.add(this.quiz_menu);
+        this.quiz_menu.addMenuListener(this);
+
+        this.main_menubar.add(this.home_menu);
+        this.quiz_menu.addMenuListener(this);
 
         this.main_frame.setJMenuBar(this.main_menubar);
 
