@@ -40,7 +40,11 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.JTextField;
 import javax.swing.Timer;
-
+/**
+ * 
+ * @author Christopher Lee
+ * @author Nicholas Poon
+ */
 public class Main implements ActionListener, ChangeListener, MenuListener{
     // Frame and panel properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
@@ -54,6 +58,9 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
     // angle slider declaration
     JSlider angle_slider = new JSlider(5, 40);
 
+    // home menu declaration
+    JMenu home_menu = new JMenu("Home");
+    
     // file menu declaration
     JMenu file_menu = new JMenu("File");
     JMenuItem save_option = new JMenuItem("Save as CSV");
@@ -65,17 +72,17 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
     JMenuItem reset_option = new JMenuItem("Reset Simulation");
     JMenuItem clear_option = new JMenuItem("Clear Simulation");
 
+    //about menu declaration
+    JMenu about_menu = new JMenu("About");
+
     // help menu declaration
     JMenu help_menu = new JMenu("Help");
-
-    // about menu declaration
-    JMenu about_menu = new JMenu("About");
+    HelpPanel help_panel = new HelpPanel();
 
     // quiz menu declaration
     JMenu quiz_menu = new JMenu("Quiz");
 
-    // home menu declaration
-    JMenu home_menu = new JMenu("Home");
+    
 
     // labels and text fields
     JLabel title_label = new JLabel("Ramp Dynamics Simulator");
@@ -100,13 +107,18 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
 
     Timer timer = new Timer(1000/48, this);
 
+    /**
+     * Action Listener method, mainly for buttons
+     * @param e ActionEvent
+     * @see DrawingPanel
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
             this.loadSimulation();
             // calculate the normal force based on the angle and mass
-            double dblNormalForce = (drawing_panel.dblMass * DrawingPanel.dblGravity)
-                    / Math.cos(Math.toRadians(drawing_panel.dblDegrees));
+            double dblNormalForce = drawing_panel.dblMass * DrawingPanel.dblGravity
+                    * Math.cos(Math.toRadians(drawing_panel.dblDegrees));
             // calculate the static friction force based on the normal force and the
             // coefficient of static friction
             double dblStaticFrictionForce = dblNormalForce * drawing_panel.dblStaticFriction;
@@ -117,9 +129,9 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
             this.normal_force_label.setText("Force of the Normal: " + dblNormalForce);
             this.sfriction_force_label.setText("Force of Static Friction: " + dblStaticFrictionForce);
             this.kfriction_force_label.setText("Force of Kinetic Friction: " + dblKineticFrictionForce);
-            this.parallel_force_label.setText("Force of Parallel: " + Math.sin(Math.toRadians(drawing_panel.dblDegrees)) * drawing_panel.dblMass * DrawingPanel.dblGravity);
-            this.perpendicular_force_label.setText("Force of the Perpendicular: " + dblNormalForce);
-            this.xacceleration_label.setText("X Acceleration: " + ((Math.sin(Math.toRadians(drawing_panel.dblDegrees))) - (drawing_panel.dblKineticFriction * Math.cos(Math.toRadians(drawing_panel.dblDegrees)))) * DrawingPanel.dblGravity * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
+            this.parallel_force_label.setText("Force of Parallel: " + dblNormalForce * Math.sin(Math.toRadians(drawing_panel.dblDegrees)));
+            this.perpendicular_force_label.setText("Force of the Perpendicular: " + dblNormalForce * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
+            this.xacceleration_label.setText("X Acceleration: " + drawing_panel.dblAccelerationX);
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
@@ -155,6 +167,22 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
   
     @Override
     public void menuSelected(MenuEvent e) {
+        if (e.getSource() == help_menu){
+            help_panel.setPreferredSize(new Dimension(960, 540));
+            System.out.println("Help Menu");
+            this.main_frame.setContentPane(help_panel);
+            this.main_frame.pack();
+            this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.main_frame.setResizable(false);
+            this.main_frame.setVisible(true);
+        }else if (e.getSource() == home_menu){
+            System.out.println("Home Menu");
+            this.main_frame.setContentPane(container_panel);
+            this.main_frame.pack();
+            this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.main_frame.setResizable(false);
+            this.main_frame.setVisible(true);
+        }
     }
 
     @Override
@@ -166,7 +194,11 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
     public void menuCanceled(MenuEvent e) {
         
     }
-
+    /**
+     * Change Listener method, mainly for the angle slider
+     * @param e ChangeEvent
+     * @see DrawingPanel
+     */
     @Override
     public void stateChanged(ChangeEvent e) {
         // System.out.println(angle_slider.getValue());
@@ -174,6 +206,9 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         drawing_panel.repaint();
     }
 
+    /**
+     * Saves settings to a CSV file in the format: angle, mass, static friction, kinetic friction
+     */
     private void saveSettings() {
         // save settings to a CSV file
         // format: angle, mass, static friction, kinetic friction, force applied
@@ -186,6 +221,9 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         }
     }
 
+    /**
+     * Loads settings from a CSV file in the format: angle, mass, static friction, kinetic friction
+     */
     private void loadSettings() {
         // load settings from a CSV file
         // load angle, mass, static friction, kinetic friction, force applied in that
@@ -204,6 +242,12 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         }
     }
 
+    /**
+     * Loads the simulation settings from the text fields
+     * @see DrawingPanel.dblMass
+     * @see DrawingPanel.dblStaticFriction
+     * @see DrawingPanel.dblKineticFriction
+     */
     private void loadSimulation() {
         // take all values from the text fields and set them to the values in the
         // simulation
@@ -232,8 +276,15 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         JOptionPane.showMessageDialog(this.main_frame, "Settings loaded.");
     }
 
+    /**
+     * Main constructor, sets up the GUI
+     * @see DrawingPanel
+     */
     Main() {
         // Add JMenuBar to the main frame, and the items to the various menus.
+        this.main_menubar.add(this.home_menu);
+        this.home_menu.addMenuListener(this);
+
         this.main_menubar.add(this.file_menu);
         this.file_menu.add(this.save_option);
         this.file_menu.add(this.open_option);
@@ -246,14 +297,7 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         this.main_menubar.add(this.help_menu);
         this.help_menu.addMenuListener(this);
 
-        this.main_menubar.add(this.about_menu);
-        this.about_menu.addMenuListener(this);
-
         this.main_menubar.add(this.quiz_menu);
-        this.quiz_menu.addMenuListener(this);
-
-        // FIXME: should display only if the panel is set to about or help
-        this.main_menubar.add(this.home_menu);
         this.quiz_menu.addMenuListener(this);
 
         this.main_frame.setJMenuBar(this.main_menubar);
