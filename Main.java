@@ -1,3 +1,17 @@
+// Ramp Dynamics Simulator
+// created by Christopher Lee and Nicholas Poon
+// ICS4U1
+
+/* EXTRA FEATURES
+ * 
+ * - TWO ADDITIONAL JCOMPONENTS
+ * - DATA FILES
+ * - ABOUT PANEL (TODO)
+ * - HELP PANEL (TODO)
+ * - JAR FILE CONTAINS ALL DATA FILES (TODO)
+ * 
+ */
+
 // imports
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,6 +39,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
+/**
+ * 
+ * @author Christopher Lee
+ * @author Nicholas Poon
+ */
 public class Main implements ActionListener, ChangeListener {
     // Frame and panel properties
     JFrame main_frame = new JFrame("ICS4U1 GUI Assignment");
@@ -72,7 +91,11 @@ public class Main implements ActionListener, ChangeListener {
 
     Timer timer = new Timer(1000/48, this);
 
-    // actionPerformed method, checks which input has been made and performs appropriate action
+    /**
+     * Action Listener method, mainly for buttons
+     * @param e ActionEvent
+     * @see DrawingPanel
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
@@ -117,7 +140,6 @@ public class Main implements ActionListener, ChangeListener {
             this.static_friction_field.setText("");
             this.kinetic_friction_field.setText("");
         } else if (e.getSource() == this.timer) {
-            // TODO: display live stats during the simulation
             // calculate the new velocity based on seconds
             drawing_panel.dblSeconds += (1 / 0.48);
             System.out.println(drawing_panel.dblVelX);
@@ -126,7 +148,11 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
-    // Change Listener method, mainly for slider
+    /**
+     * Change Listener method, mainly for the angle slider
+     * @param e ChangeEvent
+     * @see DrawingPanel
+     */
     @Override
     public void stateChanged(ChangeEvent e) {
         // System.out.println(angle_slider.getValue());
@@ -134,7 +160,9 @@ public class Main implements ActionListener, ChangeListener {
         drawing_panel.repaint();
     }
 
-    // save settings method, updates settings.csv
+    /**
+     * Saves settings to a CSV file in the format: angle, mass, static friction, kinetic friction
+     */
     private void saveSettings() {
         // save settings to a CSV file
         // format: angle, mass, static friction, kinetic friction, force applied
@@ -147,7 +175,9 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
-    // load settings method, reads from settings.csv
+    /**
+     * Loads settings from a CSV file in the format: angle, mass, static friction, kinetic friction
+     */
     private void loadSettings() {
         // load settings from a CSV file
         // load angle, mass, static friction, kinetic friction, force applied in that
@@ -166,7 +196,12 @@ public class Main implements ActionListener, ChangeListener {
         }
     }
 
-    // load simulation method, converts textfields to variables
+    /**
+     * Loads the simulation settings from the text fields
+     * @see DrawingPanel.dblMass
+     * @see DrawingPanel.dblStaticFriction
+     * @see DrawingPanel.dblKineticFriction
+     */
     private void loadSimulation() {
         // take all values from the text fields and set them to the values in the
         // simulation
@@ -195,7 +230,10 @@ public class Main implements ActionListener, ChangeListener {
         JOptionPane.showMessageDialog(this.main_frame, "Settings loaded.");
     }
 
-    // Constructor
+    /**
+     * Main constructor, sets up the GUI
+     * @see DrawingPanel
+     */
     Main() {
         // Add JMenuBar to the main frame, and the items to the various menus.
         this.main_menubar.add(this.file_menu);

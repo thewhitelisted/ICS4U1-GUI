@@ -1,9 +1,24 @@
+/* DRAWING PANEL
+ * 
+ * USED FOR DRAWING THE TRIANGLE AND SQUARE TO THE SCREEN
+ * THIS CLASS CAN BE CREATED AS A JFRAME AND ADDED TO THE MAIN JFRAME
+ * 
+ */
+
 // imports
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.lang.Math;
 
+/**
+ * DrawingPanel
+ * 
+ * This class is used for drawing the triangle and square to the screen. This
+ * class can be created as a JFrame and added to the main JFrame.
+ * @author Christopher Lee
+ * @author Nicholas Poon
+ */
 public class DrawingPanel extends JPanel {
     // Properties of triangle
     public double dblDegrees = 20.0; // Between 0 - 40. Anything more will break
@@ -68,7 +83,10 @@ public class DrawingPanel extends JPanel {
     double dblKineticFriction = 0;
     static double dblGravity = 9.8;
 
-    // paint component method, override
+    /**
+     * Paint Component method
+     * @param g Graphics
+     */
     @Override
     public void paintComponent(Graphics g) {
         this.update();
