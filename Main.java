@@ -40,6 +40,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+
 /**
  * 
  * @author Christopher Lee
@@ -114,8 +115,8 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         if (e.getSource() == this.load_settings_button) {
             this.loadSimulation();
             // calculate the normal force based on the angle and mass
-            double dblNormalForce = drawing_panel.dblMass * DrawingPanel.dblGravity
-                    * Math.cos(Math.toRadians(drawing_panel.dblDegrees));
+            double dblNormalForce = (drawing_panel.dblMass * DrawingPanel.dblGravity)
+                    / Math.cos(Math.toRadians(drawing_panel.dblDegrees));
             // calculate the static friction force based on the normal force and the
             // coefficient of static friction
             double dblStaticFrictionForce = dblNormalForce * drawing_panel.dblStaticFriction;
