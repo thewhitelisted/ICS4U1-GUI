@@ -77,18 +77,45 @@ public class Main implements ActionListener, ChangeListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.load_settings_button) {
             this.loadSimulation();
+            // calculate the normal force based on the angle and mass
+            double dblNormalForce = drawing_panel.dblMass * DrawingPanel.dblGravity
+                    * Math.cos(Math.toRadians(drawing_panel.dblDegrees));
+            // calculate the static friction force based on the normal force and the
+            // coefficient of static friction
+            double dblStaticFrictionForce = dblNormalForce * drawing_panel.dblStaticFriction;
+            // calculate the kinetic friction force based on the normal force and the
+            // coefficient of kinetic friction
+            double dblKineticFrictionForce = dblNormalForce * drawing_panel.dblKineticFriction;
+            //display the live stats to the user
+            this.normal_force_label.setText("Force of the Normal: " + dblNormalForce);
+            this.sfriction_force_label.setText("Force of Static Friction: " + dblStaticFrictionForce);
+            this.kfriction_force_label.setText("Force of Kinetic Friction: " + dblKineticFrictionForce);
+            this.parallel_force_label.setText("Force of Parallel: " + dblNormalForce * Math.sin(Math.toRadians(drawing_panel.dblDegrees)));
+            this.perpendicular_force_label.setText("Force of the Perpendicular: " + dblNormalForce * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
+            this.xacceleration_label.setText("X Acceleration: " + drawing_panel.dblAccelerationX);
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
             this.loadSettings();
         } else if (e.getSource() == this.run_option) {
+            // if the user has not loaded the simulation settings based on a boolean value, display an error message
+            if (drawing_panel.dblMass == 0 || drawing_panel.dblStaticFriction == 0 || drawing_panel.dblKineticFriction == 0) {
+                JOptionPane.showMessageDialog(this.main_frame, "The values must be greater than 0. Please load the simulation settings.");
+                return;
+            }
             timer.start();
         } else if (e.getSource() == this.reset_option) {
-            // TODO:reset simulation, timer, xposition
             System.out.println("Reset Simulation");
+            timer.stop();
+            drawing_panel.dblSeconds = 0;
+            drawing_panel.dblSquareAX = 150;
+            drawing_panel.update();
+            drawing_panel.repaint();
         } else if (e.getSource() == this.clear_option) {
-            // TODO: i don't remember why i put this option... reset text fields?
-            System.out.println("Clear Simulation");
+            // reset text fields
+            this.mass_field.setText("");
+            this.static_friction_field.setText("");
+            this.kinetic_friction_field.setText("");
         } else if (e.getSource() == this.timer) {
             // TODO: display live stats during the simulation
             // calculate the new velocity based on seconds
@@ -235,7 +262,22 @@ public class Main implements ActionListener, ChangeListener {
         this.main_panel.add(this.load_settings_button);
 
         // section for live stats
-        //TODO
+        this.stats_label.setBounds(10, 225, 290, 25);
+        this.main_panel.add(this.stats_label);
+        this.normal_force_label.setBounds(10, 260, 290, 25);
+        this.main_panel.add(this.normal_force_label);
+        this.sfriction_force_label.setBounds(10, 295, 290, 25);
+        this.main_panel.add(this.sfriction_force_label);
+        this.kfriction_force_label.setBounds(10, 330, 290, 25);
+        this.main_panel.add(this.kfriction_force_label);
+        this.parallel_force_label.setBounds(10, 365, 290, 25);
+        this.main_panel.add(this.parallel_force_label);
+        this.perpendicular_force_label.setBounds(10, 400, 290, 25);
+        this.main_panel.add(this.perpendicular_force_label);
+        this.xacceleration_label.setBounds(10, 435, 290, 25);
+        this.main_panel.add(this.xacceleration_label);
+        this.yacceleration_label.setBounds(10, 470, 290, 25);
+        this.main_panel.add(this.yacceleration_label);
 
         this.main_frame.setContentPane(container_panel);
         this.main_frame.pack();

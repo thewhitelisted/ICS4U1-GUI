@@ -119,7 +119,7 @@ public class DrawingPanel extends JPanel {
         if (dblStaticFriction*dblMass * dblGravity * Math.cos(Math.toRadians(dblDegrees)) > (dblMass * dblGravity * Math.cos(Math.toRadians(dblDegrees)))){
             return 0;
         }
-        dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees)); ;
+        dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees));
         dblVelX = dblAccelerationX * dblTime;
         if (dblVelX < 0){
             dblVelX = 0;
