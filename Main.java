@@ -117,7 +117,7 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
             this.normal_force_label.setText("Force of the Normal: " + dblNormalForce);
             this.sfriction_force_label.setText("Force of Static Friction: " + dblStaticFrictionForce);
             this.kfriction_force_label.setText("Force of Kinetic Friction: " + dblKineticFrictionForce);
-            this.parallel_force_label.setText("Force of Parallel: " + dblNormalForce * Math.sin(Math.toRadians(drawing_panel.dblDegrees)));
+            this.parallel_force_label.setText("Force of Parallel: " + Math.sin(Math.toRadians(drawing_panel.dblDegrees)) * drawing_panel.dblMass * DrawingPanel.dblGravity);
             this.perpendicular_force_label.setText("Force of the Perpendicular: " + dblNormalForce * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
             this.xacceleration_label.setText("X Acceleration: " + drawing_panel.dblAccelerationX);
         } else if (e.getSource() == this.save_option) {

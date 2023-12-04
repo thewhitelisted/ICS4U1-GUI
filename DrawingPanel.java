@@ -134,7 +134,7 @@ public class DrawingPanel extends JPanel {
     // physics calculations
     public double physicsCalculations(double dblTime){
         // if static friction is too high, return 0
-        if (dblStaticFriction*dblMass * dblGravity * Math.cos(Math.toRadians(dblDegrees)) > (dblMass * dblGravity * Math.cos(Math.toRadians(dblDegrees)))){
+        if ((dblStaticFriction*dblMass * dblGravity) / Math.cos(Math.toRadians(dblDegrees)) > (dblMass * dblGravity * Math.sin(Math.toRadians(dblDegrees)))){
             return 0;
         }
         dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees));
