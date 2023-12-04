@@ -72,6 +72,9 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
     // help menu declaration
     JMenu help_menu = new JMenu("Help");
 
+    // about menu declaration
+    JMenu about_menu = new JMenu("About");
+
     // quiz menu declaration
     JMenu quiz_menu = new JMenu("Quiz");
 
@@ -161,7 +164,6 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
   
     @Override
     public void menuSelected(MenuEvent e) {
-        
     }
 
     @Override
@@ -173,6 +175,7 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
     public void menuCanceled(MenuEvent e) {
         
     }
+
     /**
      * Change Listener method, mainly for the angle slider
      * @param e ChangeEvent
@@ -273,9 +276,13 @@ public class Main implements ActionListener, ChangeListener, MenuListener{
         this.main_menubar.add(this.help_menu);
         this.help_menu.addMenuListener(this);
 
+        this.main_menubar.add(this.about_menu);
+        this.about_menu.addMenuListener(this);
+
         this.main_menubar.add(this.quiz_menu);
         this.quiz_menu.addMenuListener(this);
 
+        // FIXME: should display only if the panel is set to about or help
         this.main_menubar.add(this.home_menu);
         this.quiz_menu.addMenuListener(this);
 
