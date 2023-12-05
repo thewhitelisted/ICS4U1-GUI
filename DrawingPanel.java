@@ -22,31 +22,22 @@ import java.lang.Math;
 public class DrawingPanel extends JPanel {
     // Properties of triangle
     public double dblDegrees = 20.0; // Between 0 - 40. Anything more will break
-    double dblPointBX = 50;
-    double dblPointBY = 490;
-    double dblPointCX = 590;
-    double dblPointCY = 490;
-    double dblPointAX = 50;
+    private double dblPointBX = 50;
+    private double dblPointBY = 490;
+    private double dblPointCX = 590;
+    private double dblPointCY = 490;
+    private double dblPointAX = 50;
 
     // height
-    double dblPointAY = dblPointBY - (dblPointCX - dblPointBX) * (Math.tan(Math.toRadians(dblDegrees)));
+    private double dblPointAY = dblPointBY - (dblPointCX - dblPointBX) * (Math.tan(Math.toRadians(dblDegrees)));
 
     // rounded dimensions for triangle
-    int intPointAX = (int) (dblPointAX);
-    int intPointAY = (int) (dblPointAY);
-    int intPointBX = (int) (dblPointBX);
-    int intPointBY = (int) (dblPointBY);
-    int intPointCX = (int) (dblPointCX);
-    int intPointCY = (int) (dblPointCY);
-
-    // side lengths triangle
-    double dblAdj = dblPointCX - dblPointBX;
-    double dblOpp = dblPointBY - dblPointAY;
-    // find slope of hypotenuse
-    double slope = dblOpp / dblAdj;
-    // find mx + b of hypotenuse
-    double b = dblPointBY - slope * dblPointBX;
-    double dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
+    private int intPointAX = (int) (dblPointAX);
+    private int intPointAY = (int) (dblPointAY);
+    private int intPointBX = (int) (dblPointBX);
+    private int intPointBY = (int) (dblPointBY);
+    private int intPointCX = (int) (dblPointCX);
+    private int intPointCY = (int) (dblPointCY);
 
     // Properties of Square
     double dblSquareAX = 150;
@@ -54,37 +45,37 @@ public class DrawingPanel extends JPanel {
 
     // calculate top left corner of square based on triangle height, should be on
     // top of the triangle
-    double dblSquareAY = (540 - 50 - (440 * Math.tan(Math.toRadians(dblDegrees))))
+    private double dblSquareAY = (540 - 50 - (440 * Math.tan(Math.toRadians(dblDegrees))))
             - (50 / Math.cos(Math.toRadians(dblDegrees)));
-    double dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
-    double dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
-    double dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
-    double dblSquareCY = dblSquareBY + 50 * (Math.cos(Math.toRadians(dblDegrees)));
-    double dblSquareDX = dblSquareCX - 50 * (Math.cos(Math.toRadians(dblDegrees)));
-    double dblSquareDY = dblSquareCY - 50 * (Math.sin(Math.toRadians(dblDegrees)));
+    private double dblSquareBX = dblSquareAX + 50 * (Math.cos(Math.toRadians(dblDegrees)));
+    private double dblSquareBY = dblSquareAY + 50 * (Math.sin(Math.toRadians(dblDegrees)));
+    private double dblSquareCX = dblSquareBX - 50 * (Math.sin(Math.toRadians(dblDegrees)));
+    private double dblSquareCY = dblSquareBY + 50 * (Math.cos(Math.toRadians(dblDegrees)));
+    private double dblSquareDX = dblSquareCX - 50 * (Math.cos(Math.toRadians(dblDegrees)));
+    private double dblSquareDY = dblSquareCY - 50 * (Math.sin(Math.toRadians(dblDegrees)));
 
     // rounded dimensions square
-    int intRoundAX = (int) dblSquareAX;
-    int intRoundAY = (int) dblSquareAY;
-    int intRoundBX = (int) dblSquareBX;
-    int intRoundBY = (int) dblSquareBY;
-    int intRoundCX = (int) dblSquareCX;
-    int intRoundCY = (int) dblSquareCY;
-    int intRoundDX = (int) dblSquareDX;
-    int intRoundDY = (int) dblSquareDY;
+    private int intRoundAX = (int) dblSquareAX;
+    private int intRoundAY = (int) dblSquareAY;
+    private int intRoundBX = (int) dblSquareBX;
+    private int intRoundBY = (int) dblSquareBY;
+    private int intRoundCX = (int) dblSquareCX;
+    private int intRoundCY = (int) dblSquareCY;
+    private int intRoundDX = (int) dblSquareDX;
+    private int intRoundDY = (int) dblSquareDY;
 
 
     // physics properties
-    double dblMass = 0;
-    double dblVelX = 0;
-    double dblSeconds = 0;
-    double dblAccelerationX = 0;
-    double dblStaticFriction = 0;
-    double dblKineticFriction = 0;
-    static double dblGravity = 9.8;
+    public double dblMass = 0;
+    public double dblVelX = 0;
+    public double dblSeconds = 0;
+    public double dblAccelerationX = 0;
+    public double dblStaticFriction = 0;
+    public double dblKineticFriction = 0;
+    public static double dblGravity = 9.8;
 
     /**
-     * Paint Component method
+     * Paints the triangle and square to the screen
      * @param g Graphics
      */
     @Override
@@ -105,11 +96,6 @@ public class DrawingPanel extends JPanel {
         // Update triangle
         dblPointAY = dblPointBY - (dblPointCX - dblPointBX) * (Math.tan(Math.toRadians(dblDegrees)));
         intPointAY = (int) (dblPointAY);
-        dblAdj = dblPointCX - dblPointBX;
-        dblOpp = dblPointBY - dblPointAY;
-        dblHyp = Math.sqrt(Math.pow(dblAdj, 2) + Math.pow(dblOpp, 2));
-        slope = dblOpp / dblAdj;
-        b = dblPointBY - slope * dblPointBX;
 
         // Update square
         dblSquareAY = (540 - 50 - ((590 - dblSquareAX) * Math.tan(Math.toRadians(dblDegrees))) - (50 / Math.sin(Math.toRadians(90 - dblDegrees))));
