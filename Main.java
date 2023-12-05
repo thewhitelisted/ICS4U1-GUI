@@ -36,8 +36,6 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
@@ -162,7 +160,6 @@ public class Main implements ActionListener, ChangeListener {
             drawing_panel.dblSquareAX += drawing_panel.physicsCalculations(drawing_panel.dblSeconds);
             drawing_panel.repaint();
         } else if (e.getSource() == help_option) {
-            help_option.setPreferredSize(new Dimension(960, 540));
             System.out.println("Help Menu");
             this.main_frame.setContentPane(help_panel);
             this.main_frame.pack();
