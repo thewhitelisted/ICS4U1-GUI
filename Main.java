@@ -7,7 +7,7 @@
  * - TWO ADDITIONAL JCOMPONENTS
  * - DATA FILES
  * - ABOUT PANEL (TODO)
- * - HELP PANEL (TODO)
+ * - HELP PANEL
  * - JAR FILE CONTAINS ALL DATA FILES (TODO)
  * 
  */
@@ -123,10 +123,10 @@ public class Main implements ActionListener, ChangeListener {
             this.sfriction_force_label.setText("Force of Static Friction: " + dblStaticFrictionForce);
             this.kfriction_force_label.setText("Force of Kinetic Friction: " + dblKineticFrictionForce);
             this.parallel_force_label.setText(
-                    "Force of Parallel: " + dblNormalForce * Math.sin(Math.toRadians(drawing_panel.dblDegrees)));
+                "Force of Parallel: " + dblNormalForce * Math.sin(Math.toRadians(drawing_panel.dblDegrees)));
             this.perpendicular_force_label.setText("Force of the Perpendicular: "
-                    + dblNormalForce * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
-            this.xacceleration_label.setText("X Acceleration: " + drawing_panel.dblAccelerationX);
+                + dblNormalForce * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
+            this.xacceleration_label.setText("X Acceleration: " + ((Math.sin(Math.toRadians(drawing_panel.dblDegrees))) - (drawing_panel.dblKineticFriction * Math.cos(Math.toRadians(drawing_panel.dblDegrees)))) * DrawingPanel.dblGravity * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
