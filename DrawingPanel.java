@@ -125,7 +125,7 @@ public class DrawingPanel extends JPanel {
         }
         dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees));
         System.out.println(dblAccelerationX);
-        dblVelX = (dblAccelerationX/48) * dblTime;
+        dblVelX = (dblAccelerationX/12) * dblTime;
         if (dblVelX < 0){
             dblVelX = 0;
         }
