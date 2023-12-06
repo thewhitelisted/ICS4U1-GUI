@@ -50,6 +50,8 @@ public class Main implements ActionListener, ChangeListener {
     JPanel container_panel = new JPanel();
     JPanel main_panel = new JPanel();
     DrawingPanel drawing_panel = new DrawingPanel();
+    HelpPanel help_panel = new HelpPanel();
+    AboutPanel about_panel = new AboutPanel();
 
     // menu bar declaration
     JMenuBar main_menubar = new JMenuBar();
@@ -72,7 +74,6 @@ public class Main implements ActionListener, ChangeListener {
     JMenu utility_menu = new JMenu("Utility");
     JMenuItem home_option = new JMenuItem("Home");
     JMenuItem help_option = new JMenuItem("Help");
-    HelpPanel help_panel = new HelpPanel();
     JMenuItem about_option = new JMenuItem("About");
     JMenuItem quiz_option = new JMenuItem("Quiz");
 
@@ -182,6 +183,13 @@ public class Main implements ActionListener, ChangeListener {
         } else if (e.getSource() == home_option) {
             System.out.println("Home Menu");
             this.main_frame.setContentPane(container_panel);
+            this.main_frame.pack();
+            this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.main_frame.setResizable(false);
+            this.main_frame.setVisible(true);
+        } else if (e.getSource() == about_option) {
+            System.out.println("About Menu");
+            this.main_frame.setContentPane(about_panel);
             this.main_frame.pack();
             this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.main_frame.setResizable(false);
