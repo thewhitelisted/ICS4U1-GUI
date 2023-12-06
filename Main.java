@@ -245,16 +245,19 @@ public class Main implements ActionListener, ChangeListener {
     private void loadSimulation() {
         // take all values from the text fields and set them to the values in the
         // simulation
-        if (this.mass_field.getText().equals("")) {
-            JOptionPane.showMessageDialog(this.main_frame, "Please enter a mass.");
+        if (this.mass_field.getText().equals("") || Double.parseDouble(this.mass_field.getText()) < 0) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a valid mass.");
             return;
-        } else if (this.static_friction_field.getText().equals("")) {
-            JOptionPane.showMessageDialog(this.main_frame, "Please enter a static friction coefficient.");
+        } else if (this.static_friction_field.getText().equals("") || (Double.parseDouble(this.static_friction_field.getText()) > 1 || Double.parseDouble(this.static_friction_field.getText()) < 0)) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a valid static friction coefficient.");
             return;
-        } else if (this.kinetic_friction_field.getText().equals("")) {
-            JOptionPane.showMessageDialog(this.main_frame, "Please enter a kinetic friction coefficient.");
+        } else if (this.kinetic_friction_field.getText().equals("") || (Double.parseDouble(this.kinetic_friction_field.getText()) > 1 || Double.parseDouble(this.kinetic_friction_field.getText()) < 0)) {
+            JOptionPane.showMessageDialog(this.main_frame, "Please enter a valid kinetic friction coefficient.");
             return;
         }
+        System.out.println(Double.parseDouble(this.mass_field.getText()));
+        System.out.println(Double.parseDouble(this.static_friction_field.getText()));
+        System.out.println(Double.parseDouble(this.kinetic_friction_field.getText()));
         // check if the values contain only numbers
         try {
             drawing_panel.dblMass = Double.parseDouble(this.mass_field.getText());
