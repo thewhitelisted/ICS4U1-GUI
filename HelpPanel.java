@@ -6,21 +6,22 @@ import javax.swing.JPanel;
 public class HelpPanel extends JPanel {
     JLabel help_label1 = new JLabel("You can change the Angle of the ramp by using the slider.");
 
-    JLabel help_label2 = new JLabel("Enter number values only for the Mass and Friction Coefficients.");
-    JLabel help_label3 = new JLabel(
-            "Once you have entered values for all of the variables for the simulation, press 'load settings into simulation' button to load them in.");
+    JLabel help_label2 = new JLabel("Enter number values only for the Mass and numbers from 0-1 for Friction Coefficients.");
+    JLabel help_label3 = new JLabel("Careful! Some combinations of low angle and high friction will not move the block");
     JLabel help_label4 = new JLabel(
-            "When you have loaded in your values, you will be able to see your simulation stats on your screen.");
+            "Once you have entered values for all of the variables for the simulation, press 'load settings into simulation' button to load them in.");
     JLabel help_label5 = new JLabel(
-            "To run your simulation, select the 'Simulation' menu and the 'Run Simulation' menu item.");
+            "When you have loaded in your values, you will be able to see your simulation stats on your screen.");
     JLabel help_label6 = new JLabel(
+            "To run your simulation, select the 'Simulation' menu and the 'Run Simulation' menu item.");
+    JLabel help_label7 = new JLabel(
             "Also under the 'Simulation' menu, you can select 'Reset Simulation' to move the square back to its original position. ");
-    JLabel help_label7 = new JLabel("Select 'Clear Simulation' to reset all of your variables.");
-    JLabel help_label8 = new JLabel(
+    JLabel help_label8 = new JLabel("Select 'Clear Simulation' to reset all of your variables.");
+    JLabel help_label9 = new JLabel(
             "Under the 'File' menu, you can click 'Save as CSV' to save all of your settings to a CSV file.");
-    JLabel help_label9 = new JLabel("Click 'load CSV' any time to automatically import all of your saved variables.");
-    JLabel help_label10 = new JLabel("The 'Home' menu will bring you back to the simulation screen.");
-    JLabel help_label11 = new JLabel("The 'Quiz' menu will give your questions related to our topic");
+    JLabel help_label10 = new JLabel("Click 'load CSV' any time to automatically import all of your saved variables.");
+    JLabel help_label11 = new JLabel("The 'Home' menu will bring you back to the simulation screen.");
+    JLabel help_label12 = new JLabel("The 'Quiz' menu will give you questions related to our topic.");
 
     public HelpPanel() {
         this.setLayout(null);
@@ -38,6 +39,7 @@ public class HelpPanel extends JPanel {
         help_label9.setFont(help_label9.getFont().deriveFont(14.0f));
         help_label10.setFont(help_label10.getFont().deriveFont(14.0f));
         help_label11.setFont(help_label11.getFont().deriveFont(14.0f));
+        help_label12.setFont(help_label12.getFont().deriveFont(14.0f));
 
         help_label1.setBounds(10, 10, 1000, 20);
         this.add(help_label2);
@@ -61,5 +63,7 @@ public class HelpPanel extends JPanel {
         this.add(help_label10);
         help_label11.setBounds(10, 310, 1000, 20);
         this.add(help_label11);
+        help_label12.setBounds(10, 340, 1000, 20);
+        this.add(help_label12);
     }
 }
