@@ -53,6 +53,7 @@ public class AboutPanel extends JPanel{
         try{
             poonPicture = ImageIO.read(imgPoon);
         }catch(IOException e){
+            
         }
 
         this.add(this.title_label);

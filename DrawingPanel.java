@@ -6,10 +6,13 @@
  */
 
 // imports
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.lang.Math;
+import java.text.DecimalFormat;
 
 /**
  * DrawingPanel
@@ -74,6 +77,12 @@ public class DrawingPanel extends JPanel {
     public double dblKineticFriction = 0;
     public static double dblGravity = 9.8;
 
+    // display length and height of ramp
+    public double dblRampLength = 540/12;
+    public double dblRampHeight = 0;
+    JLabel ramp_length = new JLabel("Ramp Length: " + dblRampLength + "m");
+    JLabel ramp_height = new JLabel("Ramp Height: " + dblRampHeight + "m");
+
     /**
      * Paints the triangle and square to the screen
      * @param g Graphics
@@ -117,6 +126,11 @@ public class DrawingPanel extends JPanel {
         intRoundCY = (int) dblSquareCY;
         intRoundDX = (int) dblSquareDX;
         intRoundDY = (int) dblSquareDY;
+
+        // update height of triangle
+        dblRampHeight = (dblPointBY - dblPointAY)/12;
+        DecimalFormat df = new DecimalFormat("###.##");
+        ramp_height.setText("Ramp Height: " + Double.valueOf(df.format(dblRampHeight)) + "m");
     }
 
     /**
@@ -131,10 +145,21 @@ public class DrawingPanel extends JPanel {
         }
         dblAccelerationX = ((Math.sin(Math.toRadians(dblDegrees))) - (dblKineticFriction * Math.cos(Math.toRadians(dblDegrees)))) * dblGravity * Math.cos(Math.toRadians(dblDegrees));
         System.out.println(dblAccelerationX);
-        dblVelX = ((dblAccelerationX/12)*5) * dblTime;
+        // 540/12 = 45 meters per pixel
+        dblVelX = ((dblAccelerationX/12)) * dblTime;
         if (dblVelX < 0){
             dblVelX = 0;
         }
         return dblVelX;
+    }
+
+    // constructor
+    public DrawingPanel() {
+        this.setLayout(null);
+        this.setPreferredSize(new Dimension(640, 540));
+        this.add(ramp_length);
+        this.add(ramp_height);
+        ramp_length.setBounds(10, 10, 200, 20);
+        ramp_height.setBounds(10, 30, 200, 20);
     }
 }
