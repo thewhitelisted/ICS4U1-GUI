@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -53,7 +55,11 @@ public class AboutPanel extends JPanel{
         try{
             poonPicture = ImageIO.read(imgPoon);
         }catch(IOException e){
-            
+            // if poonpicture does not load, load from folder
+            try {
+                poonPicture = ImageIO.read(new File("poon.png"));
+            } catch (IOException e1) {
+            }
         }
 
         this.add(this.title_label);
