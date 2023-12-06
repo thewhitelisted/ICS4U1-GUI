@@ -141,6 +141,13 @@ public class Main implements ActionListener, ChangeListener {
                         "The values must be greater than 0. Please load the simulation settings.");
                 return;
             }
+            // disable the text fields, slider, and button
+            this.angle_slider.setEnabled(false);
+            this.mass_field.setEnabled(false);
+            this.static_friction_field.setEnabled(false);
+            this.kinetic_friction_field.setEnabled(false);
+            this.load_settings_button.setEnabled(false);
+            // start the timer
             timer.start();
         } else if (e.getSource() == this.reset_option) {
             System.out.println("Reset Simulation");
@@ -149,6 +156,12 @@ public class Main implements ActionListener, ChangeListener {
             drawing_panel.dblSquareAX = 150;
             drawing_panel.update();
             drawing_panel.repaint();
+            // re enable the text fields, slider, and button
+            this.angle_slider.setEnabled(true);
+            this.mass_field.setEnabled(true);
+            this.static_friction_field.setEnabled(true);
+            this.kinetic_friction_field.setEnabled(true);
+            this.load_settings_button.setEnabled(true);
         } else if (e.getSource() == this.clear_option) {
             // reset text fields
             this.mass_field.setText("");

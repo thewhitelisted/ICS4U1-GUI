@@ -91,7 +91,9 @@ public class DrawingPanel extends JPanel {
                 new int[] { intRoundAY, intRoundBY, intRoundCY, intRoundDY }, 4);
     }
 
-    // update method, updates the dimensions
+    /**
+     * Updates the triangle and square based on the degrees and square x position
+     */
     public void update() {
         // Update triangle
         dblPointAY = dblPointBY - (dblPointCX - dblPointBX) * (Math.tan(Math.toRadians(dblDegrees)));
@@ -117,7 +119,11 @@ public class DrawingPanel extends JPanel {
         intRoundDY = (int) dblSquareDY;
     }
 
-    // physics calculations
+    /**
+     * Returns the x velocity of the square based on the time passed
+     * @param dblTime Time passed
+     * @return double x velocity
+     */
     public double physicsCalculations(double dblTime){
         // if static friction is too high, return 0
         if ((dblStaticFriction*dblMass * dblGravity) / Math.cos(Math.toRadians(dblDegrees)) > (dblMass * dblGravity * Math.sin(Math.toRadians(dblDegrees)))){
