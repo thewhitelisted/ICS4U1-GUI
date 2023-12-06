@@ -194,6 +194,14 @@ public class Main implements ActionListener, ChangeListener {
             this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.main_frame.setResizable(false);
             this.main_frame.setVisible(true);
+        } else if (e.getSource() == quiz_option) {
+            System.out.println("Quiz Menu");
+            QuizPanel quiz_panel = new QuizPanel();
+            this.main_frame.setContentPane(quiz_panel);
+            this.main_frame.pack();
+            this.main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.main_frame.setResizable(false);
+            this.main_frame.setVisible(true);
         }
     }
 
