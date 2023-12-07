@@ -22,6 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -124,10 +126,12 @@ public class Main implements ActionListener, ChangeListener {
             this.sfriction_force_label.setText("Force of Static Friction: " + dblStaticFrictionForce);
             this.kfriction_force_label.setText("Force of Kinetic Friction: " + dblKineticFrictionForce);
             this.parallel_force_label.setText(
-                "Force of Parallel: " + dblNormalForce * Math.sin(Math.toRadians(drawing_panel.dblDegrees)));
+                    "Force of Parallel: " + dblNormalForce * Math.sin(Math.toRadians(drawing_panel.dblDegrees)));
             this.perpendicular_force_label.setText("Force of the Perpendicular: "
-                + dblNormalForce * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
-            this.xacceleration_label.setText("X Acceleration: " + ((Math.sin(Math.toRadians(drawing_panel.dblDegrees))) - (drawing_panel.dblKineticFriction * Math.cos(Math.toRadians(drawing_panel.dblDegrees)))) * DrawingPanel.dblGravity * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
+                    + dblNormalForce * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
+            this.xacceleration_label.setText("X Acceleration: " + ((Math.sin(Math.toRadians(drawing_panel.dblDegrees)))
+                    - (drawing_panel.dblKineticFriction * Math.cos(Math.toRadians(drawing_panel.dblDegrees))))
+                    * DrawingPanel.dblGravity * Math.cos(Math.toRadians(drawing_panel.dblDegrees)));
         } else if (e.getSource() == this.save_option) {
             this.saveSettings();
         } else if (e.getSource() == this.open_option) {
@@ -242,8 +246,19 @@ public class Main implements ActionListener, ChangeListener {
         // load settings from a CSV file
         // load angle, mass, static friction, kinetic friction, force applied in that
         // order
+        BufferedReader br = null;
+        InputStream is = null;
+        is = getClass().getResourceAsStream("3Columns.csv");
+        if (is != null) {
+            InputStreamReader isr = new InputStreamReader(is);
+            br = new BufferedReader(isr);
+        } else {
+            try {
+                br = new BufferedReader(new FileReader("settings.csv"));
+            } catch (FileNotFoundException e) {
+            }
+        }
         try {
-            BufferedReader br = new BufferedReader(new FileReader("settings.csv"));
             String strSettings = br.readLine();
             String[] settings = strSettings.split(",");
             this.angle_slider.setValue(Integer.parseInt(settings[0]));
@@ -269,10 +284,14 @@ public class Main implements ActionListener, ChangeListener {
         if (this.mass_field.getText().equals("") || Double.parseDouble(this.mass_field.getText()) < 0) {
             JOptionPane.showMessageDialog(this.main_frame, "Please enter a valid mass.");
             return;
-        } else if (this.static_friction_field.getText().equals("") || (Double.parseDouble(this.static_friction_field.getText()) > 1 || Double.parseDouble(this.static_friction_field.getText()) < 0)) {
+        } else if (this.static_friction_field.getText().equals("")
+                || (Double.parseDouble(this.static_friction_field.getText()) > 1
+                        || Double.parseDouble(this.static_friction_field.getText()) < 0)) {
             JOptionPane.showMessageDialog(this.main_frame, "Please enter a valid static friction coefficient.");
             return;
-        } else if (this.kinetic_friction_field.getText().equals("") || (Double.parseDouble(this.kinetic_friction_field.getText()) > 1 || Double.parseDouble(this.kinetic_friction_field.getText()) < 0)) {
+        } else if (this.kinetic_friction_field.getText().equals("")
+                || (Double.parseDouble(this.kinetic_friction_field.getText()) > 1
+                        || Double.parseDouble(this.kinetic_friction_field.getText()) < 0)) {
             JOptionPane.showMessageDialog(this.main_frame, "Please enter a valid kinetic friction coefficient.");
             return;
         }
